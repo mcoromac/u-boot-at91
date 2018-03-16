@@ -328,14 +328,11 @@ static int mmc_go_idle(struct mmc *mmc)
 	cmd.cmdidx = MMC_CMD_GO_IDLE_STATE;
 	cmd.cmdarg = 0;
 	cmd.resp_type = MMC_RSP_NONE;
-
 	err = mmc_send_cmd(mmc, &cmd, NULL);
-
 	if (err)
 		return err;
 
 	udelay(2000);
-
 	return 0;
 }
 
@@ -1105,6 +1102,7 @@ static void mmc_set_bus_width(struct mmc *mmc, uint width)
 
 static int mmc_startup(struct mmc *mmc)
 {
+
 	int err, i;
 	uint mult, freq;
 	u64 cmult, csize, capacity;
@@ -1620,7 +1618,6 @@ __weak void board_mmc_power_init(void)
 static int mmc_power_init(struct mmc *mmc)
 {
 	board_mmc_power_init();
-
 #if defined(CONFIG_DM_MMC) && defined(CONFIG_DM_REGULATOR) && \
 	!defined(CONFIG_SPL_BUILD)
 	struct udevice *vmmc_supply;
@@ -1639,11 +1636,13 @@ static int mmc_power_init(struct mmc *mmc)
 		return ret;
 	}
 #endif
+
 	return 0;
 }
 
 int mmc_start_init(struct mmc *mmc)
 {
+
 	bool no_card;
 	int err;
 
@@ -1678,16 +1677,16 @@ int mmc_start_init(struct mmc *mmc)
 	if (err)
 		return err;
 #endif
+
 	mmc->ddr_mode = 0;
 	mmc_set_bus_width(mmc, 1);
 	mmc_set_clock(mmc, 1);
 
 	/* Reset the Card */
-	err = mmc_go_idle(mmc);
+	err = mmc_go_idle(mmc); //Here
 
 	if (err)
 		return err;
-
 	/* The internal partition reset to user partition(0) at every CMD0*/
 	mmc_get_blk_desc(mmc)->hwpart = 0;
 
@@ -1729,11 +1728,14 @@ static int mmc_complete_init(struct mmc *mmc)
 		mmc->has_init = 0;
 	else
 		mmc->has_init = 1;
+
+
 	return err;
 }
 
 int mmc_init(struct mmc *mmc)
 {
+
 	int err = 0;
 	__maybe_unused unsigned start;
 #ifdef CONFIG_DM_MMC

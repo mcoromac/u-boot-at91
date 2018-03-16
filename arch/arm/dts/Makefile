@@ -382,6 +382,8 @@ dtb-$(CONFIG_ARCH_BCM283X) += \
 
 dtb-$(CONFIG_ARCH_ASPEED) += ast2500-evb.dtb
 
+dtb-$(CONFIG_TARGET_P_A5_TAB_REVA) += p_a5_tab_reva.dtb
+
 targets += $(dtb-y)
 
 # Add any required device tree compiler flags here

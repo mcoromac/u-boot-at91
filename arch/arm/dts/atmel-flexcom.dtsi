@@ -1,0 +1,25 @@
+#include "skeleton.dtsi"
+
+flexcom1: flexcom@f8038000 {
+	compatible = "atmel,sama5d2-flexcom";
+	reg = <0xf8038000 0x200>;
+	clocks = <&flx0_clk>;
+	#address-cells = <1>;
+	#size-cells = <1>;
+	ranges = <0x0 0xf8038000 0x800>;
+	atmel,flexcom-mode = <1>;
+
+	usart@200 {
+		compatible = "atmel,at91rm9200-usart";
+		reg = <0x800 0x200>;
+		interrupts = <19 IRQ_TYPE_LEVEL_HIGH 7>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_flx0_default>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+		clocks = <&flx0_clk>;
+		clock-names = "usart_clk";
+		atmel,fifo-size = <32>;
+
+	};
+};

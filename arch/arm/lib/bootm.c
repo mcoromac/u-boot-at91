@@ -56,7 +56,7 @@ void arch_lmb_reserve(struct lmb *lmb)
 	 * pointer.
 	 */
 	sp = get_sp();
-	debug("## Current stack ends at 0x%08lx ", sp);
+	printf("## Current stack ends at 0x%08lx ", sp);
 
 	/* adjust sp by 4K to be safe */
 	sp -= 4096;
@@ -210,14 +210,14 @@ static void boot_prep_linux(bootm_headers_t *images)
 
 	if (IMAGE_ENABLE_OF_LIBFDT && images->ft_len) {
 #ifdef CONFIG_OF_LIBFDT
-		debug("using: FDT\n");
+		printf("using: FDT\n");
 		if (image_setup_linux(images)) {
 			printf("FDT creation failed! hanging...");
 			hang();
 		}
 #endif
 	} else if (BOOTM_ENABLE_TAGS) {
-		debug("using: ATAGS\n");
+		printf("using: ATAGS\n");
 		setup_start_tag(gd->bd);
 		if (BOOTM_ENABLE_SERIAL_TAG)
 			setup_serial_tag(&params);
@@ -309,7 +309,7 @@ static void boot_jump_linux(bootm_headers_t *images, int flag)
 	kernel_entry = (void (*)(void *fdt_addr, void *res0, void *res1,
 				void *res2))images->ep;
 
-	debug("## Transferring control to Linux (at address %lx)...\n",
+	printf("## Transferring control to Linux (at address %lx)...\n",
 		(ulong) kernel_entry);
 	bootstage_mark(BOOTSTAGE_ID_RUN_OS);
 
@@ -351,13 +351,13 @@ static void boot_jump_linux(bootm_headers_t *images, int flag)
 	s = getenv("machid");
 	if (s) {
 		if (strict_strtoul(s, 16, &machid) < 0) {
-			debug("strict_strtoul failed!\n");
+			printf("strict_strtoul failed!\n");
 			return;
 		}
 		printf("Using machid 0x%lx from environment\n", machid);
 	}
 
-	debug("## Transferring control to Linux (at address %08lx)" \
+	printf("## Transferring control to Linux (at address %08lx)" \
 		"...\n", (ulong) kernel_entry);
 	bootstage_mark(BOOTSTAGE_ID_RUN_OS);
 	announce_and_cleanup(fake);

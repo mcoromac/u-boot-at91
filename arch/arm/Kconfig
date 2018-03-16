@@ -1183,6 +1183,7 @@ source "arch/arm/cpu/armv8/Kconfig"
 
 source "arch/arm/imx-common/Kconfig"
 
+source "board/A.R.f./p_a5_tab_reva/Kconfig"
 source "board/bosch/shc/Kconfig"
 source "board/BuR/brxre1/Kconfig"
 source "board/BuR/brppt1/Kconfig"

@@ -173,6 +173,12 @@ config TARGET_VINCO
 	select CPU_V7
 	select SUPPORT_SPL
 
+config TARGET_P_A5_TAB_REVA
+	bool "P-A5-TAB RevA board"
+	select CPU_V7
+	select SUPPORT_SPL
+	select BOARD_EARLY_INIT_F
+
 endchoice
 
 config SYS_SOC
@@ -207,5 +213,6 @@ source "board/ronetix/pm9g45/Kconfig"
 source "board/siemens/corvus/Kconfig"
 source "board/siemens/taurus/Kconfig"
 source "board/siemens/smartweb/Kconfig"
+source "board/A.R.f./p_a5_tab_reva/Kconfig"
 
 endif

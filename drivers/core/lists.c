@@ -86,13 +86,13 @@ int device_bind_driver_to_node(struct udevice *parent, const char *drv_name,
 
 	drv = lists_driver_lookup_name(drv_name);
 	if (!drv) {
-		debug("Cannot find driver '%s'\n", drv_name);
+		debug("Cannot find driver '%s'\n", drv_name); /* debug */
 		return -ENOENT;
 	}
 	ret = device_bind(parent, drv, dev_name, NULL, node, devp);
 	if (ret) {
 		debug("Cannot create device named '%s' (err=%d)\n",
-		      dev_name, ret);
+		      dev_name, ret); /* debug */
 		return ret;
 	}
 
@@ -141,14 +141,15 @@ int lists_bind_fdt(struct udevice *parent, const void *blob, int offset,
 	int ret = 0;
 
 	name = fdt_get_name(blob, offset, NULL);
-	dm_dbg("bind node %s\n", name);
+	dm_dbg("bind node %s\n", name); /* dm_dbg */
+	/* dm_warn("bind node %s\n", name); */
 	if (devp)
 		*devp = NULL;
 
 	compat_list = fdt_getprop(blob, offset, "compatible", &compat_length);
 	if (!compat_list) {
 		if (compat_length == -FDT_ERR_NOTFOUND) {
-			dm_dbg("Device '%s' has no compatible string\n", name);
+			dm_dbg("Device '%s' has no compatible string\n", name); /* dm dbg */
 			return 0;
 		}
 
@@ -164,7 +165,7 @@ int lists_bind_fdt(struct udevice *parent, const void *blob, int offset,
 	for (i = 0; i < compat_length; i += strlen(compat) + 1) {
 		compat = compat_list + i;
 		dm_dbg("   - attempt to match compatible string '%s'\n",
-		       compat);
+		       compat); /* dm dbg */
 
 		for (entry = driver; entry != driver + n_ents; entry++) {
 			ret = driver_check_compatible(entry->of_match, &id,
@@ -175,11 +176,11 @@ int lists_bind_fdt(struct udevice *parent, const void *blob, int offset,
 		if (entry == driver + n_ents)
 			continue;
 
-		dm_dbg("   - found match at '%s'\n", entry->name);
+		dm_dbg("   - found match at '%s'\n", entry->name); /* dm dbg */
 		ret = device_bind_with_driver_data(parent, entry, name,
 						   id->data, offset, &dev);
 		if (ret == -ENODEV) {
-			dm_dbg("Driver '%s' refuses to bind\n", entry->name);
+			dm_dbg("Driver '%s' refuses to bind\n", entry->name); /* dm dbg */
 			continue;
 		}
 		if (ret) {
@@ -195,7 +196,7 @@ int lists_bind_fdt(struct udevice *parent, const void *blob, int offset,
 	}
 
 	if (!found && !result && ret != -ENODEV)
-		dm_dbg("No match for node '%s'\n", name);
+		dm_dbg("No match for node '%s'\n", name); /* dm dbg */
 
 	return result;
 }

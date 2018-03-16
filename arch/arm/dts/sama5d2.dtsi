@@ -9,6 +9,7 @@
 		spi1 = &qspi0;
 		i2c0 = &i2c0;
 		i2c1 = &i2c1;
+		serial0 = &uart_flexcom1;
 	};
 
 	clocks {
@@ -651,6 +652,15 @@
 				clocks = <&uart1_clk>;
 				clock-names = "usart";
 				status = "disabled";
+			};
+
+			uart_flexcom1: serial@f8038200 {
+				compatible = "atmel,at91sam9260-usart";
+				reg = <0xf8038200 0x200>;
+				clocks = <&flx1_clk>;
+				clock-names = "usart";
+				status = "disabled";
+				//atmel,flexcom-mode = <2>;
 			};
 
 			uart2: serial@f8024000 {

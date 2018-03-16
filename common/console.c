@@ -24,7 +24,7 @@ static int on_console(const char *name, const char *value, enum env_op op,
 	int flags)
 {
 	int console = -1;
-
+	printf("%s\n", name);
 	/* Check for console redirection */
 	if (strcmp(name, "stdin") == 0)
 		console = stdin;

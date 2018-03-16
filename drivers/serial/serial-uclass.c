@@ -29,6 +29,7 @@ static const unsigned long baudrate_table[] = CONFIG_SYS_BAUDRATE_TABLE;
 
 static void serial_find_console_or_panic(void)
 {
+	//dm_dump_all(); Binary tree display
 	const void *blob = gd->fdt_blob;
 	struct udevice *dev;
 	int node;

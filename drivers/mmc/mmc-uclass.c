@@ -14,6 +14,10 @@
 #include "mmc_private.h"
 
 DECLARE_GLOBAL_DATA_PTR;
+//
+//cmd.cmdidx = MMC_CMD_GO_IDLE_STATE = 0;
+//cmd.cmdarg = 0;
+//cmd.resp_type = MMC_RSP_NONE;
 
 #ifdef CONFIG_DM_MMC_OPS
 int dm_mmc_send_cmd(struct udevice *dev, struct mmc_cmd *cmd,
@@ -22,7 +26,6 @@ int dm_mmc_send_cmd(struct udevice *dev, struct mmc_cmd *cmd,
 	struct mmc *mmc = mmc_get_mmc_dev(dev);
 	struct dm_mmc_ops *ops = mmc_get_ops(dev);
 	int ret;
-
 	mmmc_trace_before_send(mmc, cmd);
 	if (ops->send_cmd)
 		ret = ops->send_cmd(dev, cmd, data);
@@ -31,8 +34,8 @@ int dm_mmc_send_cmd(struct udevice *dev, struct mmc_cmd *cmd,
 	mmmc_trace_after_send(mmc, cmd, ret);
 
 	return ret;
-}
-
+} //Here
+//mmc_send_cmd(mmc, &cmd, NULL)
 int mmc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 {
 	return dm_mmc_send_cmd(mmc->dev, cmd, data);

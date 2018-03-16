@@ -1,0 +1,15 @@
+if TARGET_P_A5_TAB_REVA
+
+config SYS_BOARD
+	default "p_a5_tab_reva"
+
+config SYS_VENDOR
+	default "A.R.f."
+
+config SYS_SOC
+	default "at91"
+
+config SYS_CONFIG_NAME
+	default "p_a5_tab_reva"
+
+endif
