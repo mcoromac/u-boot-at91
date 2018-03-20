@@ -27,12 +27,12 @@
 #undef CONFIG_BOOTCOMMAND
 
 #define FAT_ENV_DEVICE_AND_PART	"0"
-#define CONFIG_BOOTCOMMAND	"fatload mmc 0:0 0x21000000 p_a5_tab_reva.dtb; " \
-				"fatload mmc 0:0 0x22000000 zImage; " \
+#define CONFIG_BOOTCOMMAND	"fatload mmc 0:1 0x21000000 p_a5_tab_reva.dtb; " \
+				"fatload mmc 0:1 0x22000000 zImage; " \
 				"bootz 0x22000000 - 0x21000000"
 #undef CONFIG_BOOTARGS
 #define CONFIG_BOOTARGS \
-	"console=ttyS0,115200 earlyprintk initcall_debug root=/dev/mmcblk0 rw rootwait"
+	"console=ttyS0,115200 earlyprintk initcall_debug root=/dev/mmcblk0p2 rw rootwait"
 #endif
 /* #define CONFIG_MMC_TRACE */ 
 
