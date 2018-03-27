@@ -20,7 +20,7 @@
 #define CONFIG_SYS_LOAD_ADDR		0x22000000 /* load address */
 
 
-#ifdef CONFIG_SYS_USE_MMC
+/* #ifdef CONFIG_SYS_USE_MMC */
 
 /* bootstrap + u-boot + env in sd card */
 #undef FAT_ENV_DEVICE_AND_PART
