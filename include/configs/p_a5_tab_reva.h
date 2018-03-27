@@ -20,7 +20,7 @@
 #define CONFIG_SYS_LOAD_ADDR		0x22000000 /* load address */
 
 
-/* #ifdef CONFIG_SYS_USE_MMC */
+#ifdef CONFIG_SYS_USE_MMC
 
 /* bootstrap + u-boot + env in sd card */
 #undef FAT_ENV_DEVICE_AND_PART
@@ -34,7 +34,7 @@
 #define CONFIG_BOOTARGS \
 	"console=ttyS0,115200 earlyprintk initcall_debug root=/dev/mmcblk0p2 rootdelay=3 rw rootwait"
 #endif
-#define CONFIG_MMC_TRACE 
+/* #define CONFIG_MMC_TRACE */
 
 /* SPL */
 #define CONFIG_SPL_FRAMEWORK
