@@ -1735,7 +1735,8 @@ static int mmc_complete_init(struct mmc *mmc)
 
 int mmc_init(struct mmc *mmc)
 {
-
+	/*Force Card detect*/
+	*(volatile unsigned long*)0xA0000204UL = 1 << 7;
 	int err = 0;
 	__maybe_unused unsigned start;
 #ifdef CONFIG_DM_MMC
