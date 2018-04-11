@@ -32,7 +32,7 @@
 				"bootz 0x22000000 - 0x21000000"
 #undef CONFIG_BOOTARGS
 #define CONFIG_BOOTARGS \
-	"console=ttyS0,115200 earlyprintk initcall_debug root=/dev/mmcblk0p2 rw"
+	"console=ttyS0,115200 root=/dev/mmcblk0p2 rw"
 #endif
 /* #define CONFIG_MMC_TRACE */
 
