@@ -1,11 +1,18 @@
+<<<<<<< HEAD
+=======
+/* SPDX-License-Identifier: GPL-2.0+ */
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 /*
  * Configuration file for the SAMA5D2 PTC EK Board.
  *
  * Copyright (C) 2017 Microchip Technology Inc.
  *		      Wenyou Yang <wenyou.yang@microchip.com>
  *		      Ludovic Desroches <ludovic.desroches@microchip.com>
+<<<<<<< HEAD
  *
  * SPDX-License-Identifier:	GPL-2.0+
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
  */
 
 #ifndef __CONFIG_H
@@ -20,7 +27,11 @@
 
 /* SDRAM */
 #define CONFIG_NR_DRAM_BANKS		1
+<<<<<<< HEAD
 #define CONFIG_SYS_SDRAM_BASE           ATMEL_BASE_DDRCS
+=======
+#define CONFIG_SYS_SDRAM_BASE		0x20000000
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #define CONFIG_SYS_SDRAM_SIZE		0x20000000
 
 #define CONFIG_SYS_INIT_SP_ADDR \
@@ -28,19 +39,28 @@
 
 #define CONFIG_SYS_LOAD_ADDR		0x22000000 /* load address */
 
+<<<<<<< HEAD
 /* I2C */
 #define AT24MAC_ADDR		0x50
 #define AT24MAC_REG		0xfa
 
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 /* NAND Flash */
 #ifdef CONFIG_CMD_NAND
 #define CONFIG_NAND_ATMEL
 #define CONFIG_SYS_MAX_NAND_DEVICE	1
 #define CONFIG_SYS_NAND_BASE		ATMEL_BASE_CS3
 /* our ALE is AD21 */
+<<<<<<< HEAD
 #define CONFIG_SYS_NAND_MASK_ALE	(1 << 21)
 /* our CLE is AD22 */
 #define CONFIG_SYS_NAND_MASK_CLE	(1 << 22)
+=======
+#define CONFIG_SYS_NAND_MASK_ALE	BIT(21)
+/* our CLE is AD22 */
+#define CONFIG_SYS_NAND_MASK_CLE	BIT(22)
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #define CONFIG_SYS_NAND_ONFI_DETECTION
 /* PMECC & PMERRLOC */
 #define CONFIG_ATMEL_NAND_HWECC

@@ -1,23 +1,16 @@
+/* SPDX-License-Identifier: GPL-2.0+ */
 /*
  * Copyright (C) 2012 Atmel Corporation
  *
  * Configuation settings for the AT91SAM9X5EK board.
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
-#include <asm/hardware.h>
-
-#define CONFIG_SYS_TEXT_BASE		0x26f00000
-
 /* ARM asynchronous clock */
 #define CONFIG_SYS_AT91_SLOW_CLOCK	32768
 #define CONFIG_SYS_AT91_MAIN_CLOCK	12000000	/* 12 MHz crystal */
-
-#define CONFIG_AT91SAM9X5EK
 
 #define CONFIG_CMDLINE_TAG		/* enable passing of ATAGs */
 #define CONFIG_SETUP_MEMORY_TAGS
@@ -26,27 +19,22 @@
 
 /* general purpose I/O */
 #define CONFIG_ATMEL_LEGACY		/* required until (g)pio is fixed */
+<<<<<<< HEAD
 
 /* LCD */
 #ifdef CONFIG_ATMEL_HLCD
 #define CONFIG_SYS_WHITE_ON_BLACK
 #endif
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 /*
  * BOOTP options
  */
 #define CONFIG_BOOTP_BOOTFILESIZE
-#define CONFIG_BOOTP_BOOTPATH
-#define CONFIG_BOOTP_GATEWAY
-#define CONFIG_BOOTP_HOSTNAME
 
 /*
- * Command line configuration.
- */
-#define CONFIG_CMD_NAND
-
-/*
- * define CONFIG_USB_EHCI to enable USB Hi-Speed (aka 2.0)
+ * define CONFIG_USB_EHCI_HCD to enable USB Hi-Speed (aka 2.0)
  * NB: in this case, USB 1.1 devices won't be recognized.
  */
 
@@ -76,12 +64,17 @@
 #define CONFIG_SYS_NAND_ENABLE_PIN	AT91_PIN_PD4
 #define CONFIG_SYS_NAND_READY_PIN	AT91_PIN_PD5
 
+#define CONFIG_MTD_DEVICE
+#define CONFIG_MTD_PARTITIONS
+#endif
+
 /* PMECC & PMERRLOC */
 #define CONFIG_ATMEL_NAND_HWECC		1
 #define CONFIG_ATMEL_NAND_HW_PMECC	1
 #define CONFIG_PMECC_CAP		2
 #define CONFIG_PMECC_SECTOR_SIZE	512
 
+<<<<<<< HEAD
 #define CONFIG_CMD_NAND_TRIMFFS
 
 #define CONFIG_MTD_DEVICE
@@ -95,6 +88,11 @@
 /* USB */
 #ifdef CONFIG_CMD_USB
 #ifndef CONFIG_USB_EHCI
+=======
+/* USB */
+#ifdef CONFIG_CMD_USB
+#ifndef CONFIG_USB_EHCI_HCD
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #define CONFIG_USB_ATMEL
 #define CONFIG_USB_ATMEL_CLK_SEL_UPLL
 #define CONFIG_USB_OHCI_NEW
@@ -110,18 +108,21 @@
 #define CONFIG_SYS_MEMTEST_START	CONFIG_SYS_SDRAM_BASE
 #define CONFIG_SYS_MEMTEST_END		0x26e00000
 
-#ifdef CONFIG_SYS_USE_NANDFLASH
+#ifdef CONFIG_NAND_BOOT
 /* bootstrap + u-boot + env + linux in nandflash */
+<<<<<<< HEAD
 #define CONFIG_ENV_IS_IN_NAND
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #define CONFIG_ENV_OFFSET		0x140000
 #define CONFIG_ENV_OFFSET_REDUND	0x100000
 #define CONFIG_ENV_SIZE		0x20000		/* 1 sector = 128 kB */
 #define CONFIG_BOOTCOMMAND	"nand read " \
-				"0x22000000 0x200000 0x300000; " \
-				"bootm 0x22000000"
-#elif defined(CONFIG_SYS_USE_SPIFLASH)
+				"0x22000000 0x200000 0x600000; " \
+				"nand read 0x21000000 0x180000 0x20000; " \
+				"bootz 0x22000000 - 0x21000000"
+#elif defined(CONFIG_SPI_BOOT)
 /* bootstrap + u-boot + env + linux in spi flash */
-#define CONFIG_ENV_IS_IN_SPI_FLASH
 #define CONFIG_ENV_OFFSET	0x5000
 #define CONFIG_ENV_SIZE		0x3000
 #define CONFIG_ENV_SECT_SIZE	0x1000
@@ -131,7 +132,6 @@
 				"bootm 0x22000000"
 #elif defined(CONFIG_SYS_USE_DATAFLASH)
 /* bootstrap + u-boot + env + linux in data flash */
-#define CONFIG_ENV_IS_IN_SPI_FLASH
 #define CONFIG_ENV_OFFSET	0x4200
 #define CONFIG_ENV_SIZE		0x4200
 #define CONFIG_ENV_SECT_SIZE	0x210
@@ -139,16 +139,12 @@
 #define CONFIG_BOOTCOMMAND	"sf probe 0; " \
 				"sf read 0x22000000 0x84000 0x294000; " \
 				"bootm 0x22000000"
-#else /* CONFIG_SYS_USE_MMC */
+#else /* CONFIG_SD_BOOT */
 /* bootstrap + u-boot + env + linux in mmc */
-#define CONFIG_ENV_IS_IN_FAT
-#define CONFIG_FAT_WRITE
-#define FAT_ENV_INTERFACE	"mmc"
-#define FAT_ENV_FILE		"uboot.env"
-#define FAT_ENV_DEVICE_AND_PART "0"
 #define CONFIG_ENV_SIZE		0x4000
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_SYS_USE_MMC
 #define CONFIG_BOOTARGS		"mem=128M console=ttyS0,115200 " \
 				"mtdparts=atmel_nand:" \
@@ -172,13 +168,14 @@
 #define CONFIG_CMDLINE_EDITING
 #define CONFIG_AUTO_COMPLETE
 
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 /*
  * Size of malloc() pool
  */
 #define CONFIG_SYS_MALLOC_LEN		(512 * 1024 + 0x1000)
 
 /* SPL */
-#define CONFIG_SPL_FRAMEWORK
 #define CONFIG_SPL_TEXT_BASE		0x300000
 #define CONFIG_SPL_MAX_SIZE		0x6000
 #define CONFIG_SPL_STACK		0x308000
@@ -188,7 +185,6 @@
 #define CONFIG_SYS_SPL_MALLOC_START	0x20080000
 #define CONFIG_SYS_SPL_MALLOC_SIZE	0x80000
 
-#define CONFIG_SPL_BOARD_INIT
 #define CONFIG_SYS_MONITOR_LEN		(512 << 10)
 
 #define CONFIG_SYS_MASTER_CLOCK		132096000
@@ -196,14 +192,17 @@
 #define CONFIG_SYS_MCKR			0x1301
 #define CONFIG_SYS_MCKR_CSS		0x1302
 
-#ifdef CONFIG_SYS_USE_MMC
-#define CONFIG_SPL_LDSCRIPT		arch/arm/mach-at91/arm926ejs/u-boot-spl.lds
+#ifdef CONFIG_SD_BOOT
 #define CONFIG_SYS_MMCSD_FS_BOOT_PARTITION	1
 #define CONFIG_SPL_FS_LOAD_PAYLOAD_NAME		"u-boot.img"
 
-#elif CONFIG_SYS_USE_NANDFLASH
+#elif CONFIG_SPI_BOOT
+#define CONFIG_SYS_SPI_U_BOOT_OFFS	0x8400
+
+#elif CONFIG_NAND_BOOT
 #define CONFIG_SPL_NAND_DRIVERS
 #define CONFIG_SPL_NAND_BASE
+#endif
 #define CONFIG_SYS_NAND_U_BOOT_OFFS	0x40000
 #define CONFIG_SYS_NAND_5_ADDR_CYCLE
 #define CONFIG_SYS_NAND_PAGE_SIZE	0x800
@@ -212,11 +211,5 @@
 #define CONFIG_SYS_NAND_BLOCK_SIZE	0x20000
 #define CONFIG_SYS_NAND_BAD_BLOCK_POS	0x0
 #define CONFIG_SPL_GENERATE_ATMEL_PMECC_HEADER
-
-#elif CONFIG_SYS_USE_SPIFLASH
-#define CONFIG_SPL_SPI_LOAD
-#define CONFIG_SYS_SPI_U_BOOT_OFFS	0x8400
-
-#endif
 
 #endif

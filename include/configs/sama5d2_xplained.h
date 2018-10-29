@@ -1,10 +1,9 @@
+/* SPDX-License-Identifier: GPL-2.0+ */
 /*
  * Configuration file for the SAMA5D2 Xplained Board.
  *
  * Copyright (C) 2015 Atmel Corporation
  *		      Wenyou Yang <wenyou.yang@atmel.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #ifndef __CONFIG_H
@@ -16,7 +15,7 @@
 
 /* SDRAM */
 #define CONFIG_NR_DRAM_BANKS		1
-#define CONFIG_SYS_SDRAM_BASE           ATMEL_BASE_DDRCS
+#define CONFIG_SYS_SDRAM_BASE           0x20000000
 #define CONFIG_SYS_SDRAM_SIZE		0x20000000
 
 #ifdef CONFIG_SPL_BUILD
@@ -35,6 +34,7 @@
 #define CONFIG_SF_DEFAULT_SPEED		30000000
 #endif
 
+<<<<<<< HEAD
 /* NAND flash */
 #undef CONFIG_CMD_NAND
 
@@ -48,18 +48,38 @@
 #endif
 
 #ifdef CONFIG_SYS_USE_MMC
+=======
+#ifdef CONFIG_SD_BOOT
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 /* bootstrap + u-boot + env in sd card */
-#undef FAT_ENV_DEVICE_AND_PART
 #undef CONFIG_BOOTCOMMAND
 
-#define FAT_ENV_DEVICE_AND_PART	"1"
-#define CONFIG_BOOTCOMMAND	"fatload mmc 1:1 0x21000000 at91-sama5d2_xplained.dtb; " \
-				"fatload mmc 1:1 0x22000000 zImage; " \
+#define CONFIG_BOOTCOMMAND	"fatload mmc " CONFIG_ENV_FAT_DEVICE_AND_PART " 0x21000000 at91-sama5d2_xplained.dtb; " \
+				"fatload mmc " CONFIG_ENV_FAT_DEVICE_AND_PART " 0x22000000 zImage; " \
 				"bootz 0x22000000 - 0x21000000"
-#undef CONFIG_BOOTARGS
-#define CONFIG_BOOTARGS \
-	"console=ttyS0,115200 earlyprintk root=/dev/mmcblk1p2 rw rootwait"
+
+#elif CONFIG_SPI_BOOT
+
+/* bootstrap + u-boot + env in sd card, but kernel + dtb in eMMC */
+#undef CONFIG_BOOTCOMMAND
+
+#define CONFIG_BOOTCOMMAND	"ext4load mmc 0:1 0x21000000 /boot/at91-sama5d2_xplained.dtb; " \
+				"ext4load mmc 0:1 0x22000000 /boot/zImage; " \
+				"bootz 0x22000000 - 0x21000000"
+
+#endif
+
+#ifdef CONFIG_QSPI_BOOT
+#undef CONFIG_ENV_SPI_BUS
+#undef CONFIG_ENV_SPI_CS
+#undef CONFIG_BOOTCOMMAND
+#define CONFIG_ENV_SPI_BUS		1
+#define CONFIG_ENV_SPI_CS		0
+#define CONFIG_BOOTCOMMAND              "sf probe 1:0; "				\
+                                        "sf read 0x21000000 0x180000 0x80000; "		\
+                                        "sf read 0x22000000 0x200000 0x600000; "	\
+                                        "bootz 0x22000000 - 0x21000000"
 
 #endif
 
@@ -82,7 +102,6 @@
 #endif
 
 /* SPL */
-#define CONFIG_SPL_FRAMEWORK
 #define CONFIG_SPL_TEXT_BASE		0x200000
 #define CONFIG_SPL_MAX_SIZE		0x10000
 #define CONFIG_SPL_BSS_START_ADDR	0x20000000
@@ -90,16 +109,18 @@
 #define CONFIG_SYS_SPL_MALLOC_START	0x20080000
 #define CONFIG_SYS_SPL_MALLOC_SIZE	0x80000
 
-#define CONFIG_SPL_BOARD_INIT
 #define CONFIG_SYS_MONITOR_LEN		(512 << 10)
 
-#ifdef CONFIG_SYS_USE_MMC
-#define CONFIG_SPL_LDSCRIPT		arch/arm/mach-at91/armv7/u-boot-spl.lds
+#ifdef CONFIG_SD_BOOT
 #define CONFIG_SYS_MMCSD_FS_BOOT_PARTITION	1
 #define CONFIG_SPL_FS_LOAD_PAYLOAD_NAME		"u-boot.img"
 
+<<<<<<< HEAD
 #elif CONFIG_SYS_USE_SERIALFLASH
 #define CONFIG_SPL_SPI_LOAD
+=======
+#elif CONFIG_SPI_BOOT
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #define CONFIG_SYS_SPI_U_BOOT_OFFS	0x10000
 
 #endif

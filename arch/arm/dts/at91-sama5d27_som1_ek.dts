@@ -54,6 +54,21 @@
 		stdout-path = &uart1;
 	};
 
+<<<<<<< HEAD
+=======
+	onewire_tm: onewire {
+		gpios = <&pioA 17 0>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_onewire_tm_default>;
+		status = "okay";
+
+		w1_eeprom: w1_eeprom@0 {
+			compatible = "maxim,ds24b33";
+			status = "okay";
+		};
+	};
+
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	ahb {
 		usb1: ohci@00400000 {
 			num-ports = <3>;
@@ -84,6 +99,34 @@
 		};
 
 		apb {
+<<<<<<< HEAD
+=======
+			hlcdc: hlcdc@f0000000 {
+				atmel,vl-bpix = <4>;
+				atmel,guard-time = <1>;
+				pinctrl-names = "default";
+				pinctrl-0 = <&pinctrl_lcd_base &pinctrl_lcd_pwm &pinctrl_lcd_rgb666>;
+				status = "okay";
+				u-boot,dm-pre-reloc;
+
+				display-timings {
+					u-boot,dm-pre-reloc;
+					480x272 {
+						clock-frequency = <9000000>;
+						hactive = <480>;
+						vactive = <272>;
+						hsync-len = <41>;
+						hfront-porch = <2>;
+						hback-porch = <2>;
+						vfront-porch = <2>;
+						vback-porch = <2>;
+						vsync-len = <11>;
+						u-boot,dm-pre-reloc;
+					};
+				};
+			};
+
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 			uart1: serial@f8020000 {
 				pinctrl-names = "default";
 				pinctrl-0 = <&pinctrl_uart1_default>;
@@ -93,6 +136,44 @@
 
 			pioA: gpio@fc038000 {
 				pinctrl {
+<<<<<<< HEAD
+=======
+					pinctrl_lcd_base: pinctrl_lcd_base {
+						pinmux = <PIN_PC5__LCDVSYNC>,
+							 <PIN_PC6__LCDHSYNC>,
+							 <PIN_PC8__LCDDEN>,
+							 <PIN_PC7__LCDPCK>;
+						bias-disable;
+					};
+
+					pinctrl_lcd_pwm: pinctrl_lcd_pwm {
+						pinmux = <PIN_PC3__LCDPWM>;
+						bias-disable;
+					};
+
+					pinctrl_lcd_rgb666: pinctrl_lcd_rgb666 {
+						pinmux = <PIN_PB13__LCDDAT2>,
+							 <PIN_PB14__LCDDAT3>,
+							 <PIN_PB15__LCDDAT4>,
+							 <PIN_PB16__LCDDAT5>,
+							 <PIN_PB17__LCDDAT6>,
+							 <PIN_PB18__LCDDAT7>,
+							 <PIN_PB21__LCDDAT10>,
+							 <PIN_PB22__LCDDAT11>,
+							 <PIN_PB23__LCDDAT12>,
+							 <PIN_PB24__LCDDAT13>,
+							 <PIN_PB25__LCDDAT14>,
+							 <PIN_PB26__LCDDAT15>,
+							 <PIN_PB29__LCDDAT18>,
+							 <PIN_PB30__LCDDAT19>,
+							 <PIN_PB31__LCDDAT20>,
+							 <PIN_PC0__LCDDAT21>,
+							 <PIN_PC1__LCDDAT22>,
+							 <PIN_PC2__LCDDAT23>;
+						bias-disable;
+					};
+
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 					pinctrl_sdmmc0_cmd_dat_default: sdmmc0_cmd_dat_default {
 						pinmux = <PIN_PA1__SDMMC0_CMD>,
 							 <PIN_PA2__SDMMC0_DAT0>,
@@ -148,6 +229,14 @@
 						pinmux = <PIN_PA31__GPIO>;
 						bias-disable;
 					};
+<<<<<<< HEAD
+=======
+
+					pinctrl_onewire_tm_default: onewire_tm_default {
+						pinmux = <PIN_PA17__GPIO>;
+						bias-pull-up;
+					};
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 				};
 			};
 		};

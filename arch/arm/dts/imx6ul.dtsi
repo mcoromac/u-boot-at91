@@ -43,6 +43,8 @@
 		spi1 = &ecspi2;
 		spi2 = &ecspi3;
 		spi3 = &ecspi4;
+		usbotg0 = &usbotg1;
+		usbotg1 = &usbotg2;
 		usbphy0 = &usbphy1;
 		usbphy1 = &usbphy2;
 	};
@@ -190,6 +192,7 @@
 				#size-cells = <1>;
 				reg = <0x02000000 0x40000>;
 				ranges;
+				u-boot,dm-spl;
 
 				ecspi1: ecspi@02008000 {
 					#address-cells = <1>;
@@ -870,6 +873,14 @@
 				clocks = <&clks IMX6UL_CLK_QSPI>,
 					 <&clks IMX6UL_CLK_QSPI>;
 				clock-names = "qspi_en", "qspi";
+				status = "disabled";
+			};
+
+			wdog3: wdog@021e4000 {
+				compatible = "fsl,imx6ul-wdt", "fsl,imx21-wdt";
+				reg = <0x021e4000 0x4000>;
+				interrupts = <GIC_SPI 11 IRQ_TYPE_LEVEL_HIGH>;
+				clocks = <&clks IMX6UL_CLK_WDOG3>;
 				status = "disabled";
 			};
 

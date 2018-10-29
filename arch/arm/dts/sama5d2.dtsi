@@ -654,6 +654,7 @@
 				status = "disabled";
 			};
 
+<<<<<<< HEAD
 			uart_flexcom1: serial@f8038200 {
 				compatible = "atmel,at91sam9260-usart";
 				reg = <0xf8038200 0x200>;
@@ -663,6 +664,8 @@
 				//atmel,flexcom-mode = <2>;
 			};
 
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 			uart2: serial@f8024000 {
 				compatible = "atmel,at91sam9260-usart";
 				reg = <0xf8024000 0x100>;
@@ -680,6 +683,37 @@
 				status = "disabled";
 			};
 
+<<<<<<< HEAD
+=======
+			rstc@f8048000 {
+				compatible = "atmel,sama5d3-rstc";
+				reg = <0xf8048000 0x10>;
+				clocks = <&clk32k>;
+			};
+
+			shdwc@f8048010 {
+				compatible = "atmel,sama5d2-shdwc";
+				reg = <0xf8048010 0x10>;
+				clocks = <&clk32k>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				atmel,wakeup-rtc-timer;
+			};
+
+			pit: timer@f8048030 {
+				compatible = "atmel,at91sam9260-pit";
+				reg = <0xf8048030 0x10>;
+				clocks = <&h32ck>;
+			};
+
+			watchdog@f8048040 {
+				compatible = "atmel,sama5d4-wdt";
+				reg = <0xf8048040 0x10>;
+				clocks = <&clk32k>;
+				status = "disabled";
+			};
+
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 			sfr: sfr@f8030000 {
 				compatible = "atmel,sama5d2-sfr", "syscon";
 				reg = <0xf8030000 0x98>;
@@ -750,5 +784,10 @@
 				};
 			};
 		};
+	};
+
+	onewire_tm: onewire {
+		compatible = "w1-gpio";
+		status = "disabled";
 	};
 };

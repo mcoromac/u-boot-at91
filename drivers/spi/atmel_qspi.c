@@ -372,7 +372,11 @@ static int atmel_qspi_ofdata_to_platdata(struct udevice *bus)
 {
 	struct atmel_qspi_platdata *plat = dev_get_platdata(bus);
 	const void *blob = gd->fdt_blob;
+<<<<<<< HEAD
 	int node = bus->of_offset;
+=======
+	int node = dev_of_offset (bus);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	u32 data[4];
 	int ret;
 

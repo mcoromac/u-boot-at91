@@ -1,7 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (c) 2011 The Chromium OS Authors.
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
@@ -13,7 +12,7 @@
 int spi_set_wordlen(struct spi_slave *slave, unsigned int wordlen)
 {
 	if (wordlen == 0 || wordlen > 32) {
-		printf("spi: invalid wordlen %d\n", wordlen);
+		printf("spi: invalid wordlen %u\n", wordlen);
 		return -1;
 	}
 
@@ -25,11 +24,12 @@ int spi_set_wordlen(struct spi_slave *slave, unsigned int wordlen)
 void *spi_do_alloc_slave(int offset, int size, unsigned int bus,
 			 unsigned int cs)
 {
-	struct spi_slave *slave;
-	void *ptr;
+	u8 *ptr;
 
 	ptr = malloc(size);
 	if (ptr) {
+		struct spi_slave *slave;
+
 		memset(ptr, '\0', size);
 		slave = (struct spi_slave *)(ptr + offset);
 		slave->bus = bus;
@@ -40,24 +40,18 @@ void *spi_do_alloc_slave(int offset, int size, unsigned int bus,
 	return ptr;
 }
 
-#ifdef CONFIG_OF_SPI
-struct spi_slave *spi_base_setup_slave_fdt(const void *blob, int busnum,
-					   int node)
+__weak bool spi_is_flash_command_supported(struct spi_slave *slave,
+					   const struct spi_flash_command *cmd)
 {
-	int cs, max_hz, mode = 0;
-
-	cs = fdtdec_get_int(blob, node, "reg", -1);
-	max_hz = fdtdec_get_int(blob, node, "spi-max-frequency", 100000);
-	if (fdtdec_get_bool(blob, node, "spi-cpol"))
-		mode |= SPI_CPOL;
-	if (fdtdec_get_bool(blob, node, "spi-cpha"))
-		mode |= SPI_CPHA;
-	if (fdtdec_get_bool(blob, node, "spi-cs-high"))
-		mode |= SPI_CS_HIGH;
-	if (fdtdec_get_bool(blob, node, "spi-half-duplex"))
-		mode |= SPI_PREAMBLE;
-	return spi_setup_slave(busnum, cs, max_hz, mode);
+	return false;
 }
+
+__weak int spi_exec_flash_command(struct spi_slave *slave,
+				  const struct spi_flash_command *cmd)
+{
+	return -EINVAL;
+}
+<<<<<<< HEAD
 #endif
 
 __weak bool spi_is_flash_command_supported(struct spi_slave *slave,
@@ -71,3 +65,5 @@ __weak int spi_exec_flash_command(struct spi_slave *slave,
 {
 	return -EINVAL;
 }
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14

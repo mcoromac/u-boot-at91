@@ -16,9 +16,15 @@ config AT91_UTMI
 	bool "Support UTMI PLL Clock"
 	depends on CLK_AT91
 	select REGMAP
+<<<<<<< HEAD
 	select SPL_REGMAP
 	select SYSCON
 	select SPL_SYSCON
+=======
+	select SPL_REGMAP if SPL_DM
+	select SYSCON
+	select SPL_SYSCON if SPL_DM
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	help
 	  This option is used to enable the AT91 UTMI PLL clock
 	  driver. It is the clock provider of USB, and UPLLCK is the
@@ -26,6 +32,14 @@ config AT91_UTMI
 	  PLL is the main clock, so the main clock must select the
 	  fast crystal oscillator to meet the frequency accuracy
 	  required by USB.
+
+config AT91_USB_CLK
+	bool "Support USB OHCI Input Clock"
+	depends on CLK_AT91
+	help
+	  This option is used to enable the USB Input Clock, from
+	  the device tree, configure the USBS bit (PLLA or UTMI PLL)
+	  and USBDIV field of the PMC_USB register.
 
 config AT91_H32MX
 	bool "Support H32MX 32-bit Matrix Clock"

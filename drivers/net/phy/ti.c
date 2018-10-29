@@ -1,7 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0
 /*
  * TI PHY drivers
- *
- * SPDX-License-Identifier:	GPL-2.0
  *
  */
 #include <common.h>
@@ -174,7 +173,7 @@ static int dp83867_of_init(struct phy_device *phydev)
 {
 	struct dp83867_private *dp83867 = phydev->priv;
 	struct udevice *dev = phydev->dev;
-	int node = dev->of_offset;
+	int node = dev_of_offset(dev);
 	const void *fdt = gd->fdt_blob;
 
 	if (fdtdec_get_bool(fdt, node, "ti,max-output-impedance"))

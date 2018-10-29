@@ -1,10 +1,9 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (c) 2013 Google, Inc
  *
  * (C) Copyright 2012
  * Marek Vasut <marex@denx.de>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
@@ -74,11 +73,12 @@ int lists_bind_drivers(struct udevice *parent, bool pre_reloc_only)
 int device_bind_driver(struct udevice *parent, const char *drv_name,
 		       const char *dev_name, struct udevice **devp)
 {
-	return device_bind_driver_to_node(parent, drv_name, dev_name, -1, devp);
+	return device_bind_driver_to_node(parent, drv_name, dev_name,
+					  ofnode_null(), devp);
 }
 
 int device_bind_driver_to_node(struct udevice *parent, const char *drv_name,
-			       const char *dev_name, int node,
+			       const char *dev_name, ofnode node,
 			       struct udevice **devp)
 {
 	struct driver *drv;
@@ -89,14 +89,19 @@ int device_bind_driver_to_node(struct udevice *parent, const char *drv_name,
 		debug("Cannot find driver '%s'\n", drv_name); /* debug */
 		return -ENOENT;
 	}
+<<<<<<< HEAD
 	ret = device_bind(parent, drv, dev_name, NULL, node, devp);
 	if (ret) {
 		debug("Cannot create device named '%s' (err=%d)\n",
 		      dev_name, ret); /* debug */
 		return ret;
 	}
+=======
+	ret = device_bind_with_driver_data(parent, drv, dev_name, 0 /* data */,
+					   node, devp);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
-	return 0;
+	return ret;
 }
 
 #if CONFIG_IS_ENABLED(OF_CONTROL) && !CONFIG_IS_ENABLED(OF_PLATDATA)
@@ -126,8 +131,7 @@ static int driver_check_compatible(const struct udevice_id *of_match,
 	return -ENOENT;
 }
 
-int lists_bind_fdt(struct udevice *parent, const void *blob, int offset,
-		   struct udevice **devp)
+int lists_bind_fdt(struct udevice *parent, ofnode node, struct udevice **devp)
 {
 	struct driver *driver = ll_entry_start(struct driver, driver);
 	const int n_ents = ll_entry_count(struct driver, driver);
@@ -140,20 +144,30 @@ int lists_bind_fdt(struct udevice *parent, const void *blob, int offset,
 	int result = 0;
 	int ret = 0;
 
+<<<<<<< HEAD
 	name = fdt_get_name(blob, offset, NULL);
 	dm_dbg("bind node %s\n", name); /* dm_dbg */
 	/* dm_warn("bind node %s\n", name); */
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (devp)
 		*devp = NULL;
+	name = ofnode_get_name(node);
+	pr_debug("bind node %s\n", name);
 
-	compat_list = fdt_getprop(blob, offset, "compatible", &compat_length);
+	compat_list = ofnode_get_property(node, "compatible", &compat_length);
 	if (!compat_list) {
 		if (compat_length == -FDT_ERR_NOTFOUND) {
+<<<<<<< HEAD
 			dm_dbg("Device '%s' has no compatible string\n", name); /* dm dbg */
+=======
+			pr_debug("Device '%s' has no compatible string\n",
+				 name);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 			return 0;
 		}
 
-		dm_warn("Device tree error at offset %d\n", offset);
+		dm_warn("Device tree error at node '%s'\n", name);
 		return compat_length;
 	}
 
@@ -164,8 +178,13 @@ int lists_bind_fdt(struct udevice *parent, const void *blob, int offset,
 	 */
 	for (i = 0; i < compat_length; i += strlen(compat) + 1) {
 		compat = compat_list + i;
+<<<<<<< HEAD
 		dm_dbg("   - attempt to match compatible string '%s'\n",
 		       compat); /* dm dbg */
+=======
+		pr_debug("   - attempt to match compatible string '%s'\n",
+			 compat);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 		for (entry = driver; entry != driver + n_ents; entry++) {
 			ret = driver_check_compatible(entry->of_match, &id,
@@ -176,11 +195,19 @@ int lists_bind_fdt(struct udevice *parent, const void *blob, int offset,
 		if (entry == driver + n_ents)
 			continue;
 
+<<<<<<< HEAD
 		dm_dbg("   - found match at '%s'\n", entry->name); /* dm dbg */
+=======
+		pr_debug("   - found match at '%s'\n", entry->name);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 		ret = device_bind_with_driver_data(parent, entry, name,
-						   id->data, offset, &dev);
+						   id->data, node, &dev);
 		if (ret == -ENODEV) {
+<<<<<<< HEAD
 			dm_dbg("Driver '%s' refuses to bind\n", entry->name); /* dm dbg */
+=======
+			pr_debug("Driver '%s' refuses to bind\n", entry->name);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 			continue;
 		}
 		if (ret) {
@@ -196,7 +223,11 @@ int lists_bind_fdt(struct udevice *parent, const void *blob, int offset,
 	}
 
 	if (!found && !result && ret != -ENODEV)
+<<<<<<< HEAD
 		dm_dbg("No match for node '%s'\n", name); /* dm dbg */
+=======
+		pr_debug("No match for node '%s'\n", name);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 	return result;
 }

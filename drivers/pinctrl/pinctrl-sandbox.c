@@ -1,13 +1,12 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2015  Masahiro Yamada <yamada.masahiro@socionext.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 /* #define DEBUG */
 
 #include <common.h>
-#include <dm/device.h>
+#include <dm.h>
 #include <dm/pinctrl.h>
 
 static const char * const sandbox_pins[] = {
@@ -15,6 +14,7 @@ static const char * const sandbox_pins[] = {
 	"SDA",
 	"TX",
 	"RX",
+	"W1"
 };
 
 static const char * const sandbox_groups[] = {
@@ -22,12 +22,14 @@ static const char * const sandbox_groups[] = {
 	"serial_a",
 	"serial_b",
 	"spi",
+	"w1",
 };
 
 static const char * const sandbox_functions[] = {
 	"i2c",
 	"serial",
 	"spi",
+	"w1",
 };
 
 static const struct pinconf_param sandbox_conf_params[] = {

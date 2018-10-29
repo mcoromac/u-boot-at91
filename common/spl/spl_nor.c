@@ -1,7 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2012 Stefan Roese <sr@denx.de>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
@@ -39,13 +38,7 @@ static int spl_nor_load_image(struct spl_image_info *spl_image,
 					sizeof(struct image_header)),
 			       spl_image->size);
 
-			/*
-			 * Copy DT blob (fdt) to SDRAM. Passing pointer to
-			 * flash doesn't work
-			 */
-			memcpy((void *)CONFIG_SYS_SPL_ARGS_ADDR,
-			       (void *)(CONFIG_SYS_FDT_BASE),
-			       CONFIG_SYS_FDT_SIZE);
+			spl_image->arg = (void *)CONFIG_SYS_FDT_BASE;
 
 			return 0;
 		} else {

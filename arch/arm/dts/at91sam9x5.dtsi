@@ -41,9 +41,12 @@
 	};
 
 	cpus {
+<<<<<<< HEAD
 		#address-cells = <0>;
 		#size-cells = <0>;
 
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 		cpu {
 			compatible = "arm,arm926ej-s";
 			device_type = "cpu";
@@ -1048,8 +1051,11 @@
 			};
 
 			adc0: adc@f804c000 {
+<<<<<<< HEAD
 				#address-cells = <1>;
 				#size-cells = <0>;
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 				compatible = "atmel,at91sam9x5-adc";
 				reg = <0xf804c000 0x100>;
 				interrupts = <19 IRQ_TYPE_LEVEL_HIGH 0>;

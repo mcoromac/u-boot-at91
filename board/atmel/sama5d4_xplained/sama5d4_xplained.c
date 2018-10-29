@@ -1,8 +1,7 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2014 Atmel
  *		      Bo Shen <voice.shen@atmel.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
@@ -16,6 +15,7 @@
 #include <asm/arch/clk.h>
 #include <asm/arch/sama5d3_smc.h>
 #include <asm/arch/sama5d4.h>
+<<<<<<< HEAD
 #include <atmel_lcd.h>
 #include <debug_uart.h>
 #include <nand.h>
@@ -27,6 +27,14 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
+=======
+#include <debug_uart.h>
+
+DECLARE_GLOBAL_DATA_PTR;
+
+extern void at91_pda_detect(void);
+
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #ifdef CONFIG_NAND_ATMEL
 static void sama5d4_xplained_nand_hw_init(void)
 {
@@ -78,6 +86,7 @@ static void sama5d4_xplained_usb_hw_init(void)
 }
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_DM_VIDEO
 static int video_show_board_logo_info(void)
 {
@@ -140,11 +149,46 @@ int board_late_init(void)
 {
 #ifdef CONFIG_DM_VIDEO
 	video_show_board_logo_info();
+=======
+#ifdef CONFIG_BOARD_LATE_INIT
+int board_late_init(void)
+{
+	at91_pda_detect();
+#ifdef CONFIG_DM_VIDEO
+	at91_video_show_board_info();
 #endif
 	return 0;
 }
 #endif
 
+#ifdef CONFIG_DEBUG_UART_BOARD_INIT
+static void sama5d4_xplained_serial3_hw_init(void)
+{
+	at91_pio3_set_b_periph(AT91_PIO_PORTE, 17, 1);	/* TXD3 */
+	at91_pio3_set_b_periph(AT91_PIO_PORTE, 16, 0);	/* RXD3 */
+
+	/* Enable clock */
+	at91_periph_clk_enable(ATMEL_ID_USART3);
+}
+
+void board_debug_uart_init(void)
+{
+	sama5d4_xplained_serial3_hw_init();
+}
+#endif
+
+#ifdef CONFIG_BOARD_EARLY_INIT_F
+int board_early_init_f(void)
+{
+#ifdef CONFIG_DEBUG_UART
+	debug_uart_init();
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
+#endif
+	return 0;
+}
+#endif
+
+<<<<<<< HEAD
 #ifdef CONFIG_DEBUG_UART_BOARD_INIT
 static void sama5d4_xplained_serial3_hw_init(void)
 {
@@ -211,6 +255,15 @@ int misc_init_r(void)
 {
 #ifdef CONFIG_DM_I2C
 	set_ethaddr_from_at24mac();
+=======
+#define AT24MAC_MAC_OFFSET	0x9a
+
+#ifdef CONFIG_MISC_INIT_R
+int misc_init_r(void)
+{
+#ifdef CONFIG_I2C_EEPROM
+	at91_set_ethaddr(AT24MAC_MAC_OFFSET);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #endif
 	return 0;
 }
@@ -242,7 +295,11 @@ int dram_init(void)
 #ifdef CONFIG_SPL_BUILD
 void spl_board_init(void)
 {
+<<<<<<< HEAD
 #if CONFIG_SYS_USE_NANDFLASH
+=======
+#if CONFIG_NAND_BOOT
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	sama5d4_xplained_nand_hw_init();
 #endif
 }

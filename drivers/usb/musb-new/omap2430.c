@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-2.0
 /*
  * Copyright (C) 2005-2007 by Texas Instruments
  * Some code has been taken from tusb6010.c
@@ -6,8 +7,6 @@
  * Tony Lindgren <tony@atomide.com>
  *
  * This file is part of the Inventra Controller Driver for Linux.
- *
- * SPDX-License-Identifier:	GPL-2.0
  */
 #ifndef __UBOOT__
 #include <linux/module.h>
@@ -441,7 +440,7 @@ static int omap2430_musb_enable(struct musb *musb)
 	twl6030_usb_device_settings();
 #endif
 
-#ifdef CONFIG_OMAP4430
+#ifdef CONFIG_OMAP44XX
 	u32 *usbotghs_control = (u32 *)((*ctrl)->control_usbotghs_ctrl);
 	*usbotghs_control = USBOTGHS_CONTROL_AVALID |
 		USBOTGHS_CONTROL_VBUSVALID | USBOTGHS_CONTROL_IDDIG;

@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2016 Atmel Corporation
  * Wenyou.Yang <wenyou.yang@atmel.com>
  *
  * SPDX-License-Identifier:	GPL-2.0+
+=======
+// SPDX-License-Identifier: GPL-2.0+
+/*
+ * Copyright (C) 2016 Microchip
+ *		 Wenyou.Yang <wenyou.yang@microchip.com>
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
  */
 
 #include <common.h>
@@ -11,7 +18,11 @@
 #include "atmel_logo_8bpp.h"
 #include "microchip_logo_8bpp.h"
 
+<<<<<<< HEAD
 void get_atmel_logo_info(vidinfo_t *info)
+=======
+void atmel_logo_info(vidinfo_t *info)
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 {
 	info->logo_width = ATMEL_LOGO_8BPP_WIDTH;
 	info->logo_height = ATMEL_LOGO_8BPP_HEIGHT;
@@ -20,7 +31,11 @@ void get_atmel_logo_info(vidinfo_t *info)
 	info->logo_addr = (u_long)atmel_logo_8bpp;
 }
 
+<<<<<<< HEAD
 void get_microchip_logo_info(vidinfo_t *info)
+=======
+void microchip_logo_info(vidinfo_t *info)
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 {
 	info->logo_width = MICROCHIP_LOGO_8BPP_WIDTH;
 	info->logo_height = MICROCHIP_LOGO_8BPP_HEIGHT;

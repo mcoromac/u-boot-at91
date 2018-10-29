@@ -1,10 +1,9 @@
+/* SPDX-License-Identifier: GPL-2.0+ */
 /*
  * atmel_lcd.h - Atmel LCD Controller structures
  *
  * (C) Copyright 2001
  * Wolfgang Denk, DENX Software Engineering, wd@denx.de.
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #ifndef _ATMEL_LCD_H_
@@ -51,7 +50,12 @@ typedef struct vidinfo {
 	u_long logo_addr;
 } vidinfo_t;
 
+<<<<<<< HEAD
 void get_atmel_logo_info(vidinfo_t *info);
 void get_microchip_logo_info(vidinfo_t *info);
+=======
+void atmel_logo_info(vidinfo_t *info);
+void microchip_logo_info(vidinfo_t *info);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 #endif

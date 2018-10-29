@@ -221,8 +221,11 @@
 		compatible = "gpio-keys";
 		status = "okay";
 
+<<<<<<< HEAD
 		#address-cells = <1>;
 		#size-cells = <0>;
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_gpio_keys>;
 

@@ -1,8 +1,7 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2015 Atmel Corporation
  *		      Wenyou.Yang <wenyou.yang@atmel.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
@@ -29,7 +28,7 @@ int atmel_sdhci_init(void *regbase, u32 id)
 
 	host->name = "atmel_sdhci";
 	host->ioaddr = regbase;
-	host->quirks = 0;
+	host->quirks = SDHCI_QUIRK_WAIT_SEND_CMD;
 	max_clk = at91_get_periph_generated_clk(id);
 	if (!max_clk) {
 		printf("%s: Failed to get the proper clock\n", __func__);
@@ -70,7 +69,7 @@ static int atmel_sdhci_probe(struct udevice *dev)
 		return ret;
 
 	host->name = dev->name;
-	host->ioaddr = (void *)dev_get_addr(dev);
+	host->ioaddr = (void *)devfdt_get_addr(dev);
 
 	host->quirks = SDHCI_QUIRK_WAIT_SEND_CMD;
 	host->bus_width	= fdtdec_get_int(gd->fdt_blob, dev_of_offset(dev),

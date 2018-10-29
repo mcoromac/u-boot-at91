@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: GPL-2.0+
 # Copyright (c) 2016 Google, Inc
 # Written by Simon Glass <sjg@chromium.org>
-#
-# SPDX-License-Identifier:      GPL-2.0+
 #
 # Creates binary images from input files controlled by a description
 #
@@ -12,7 +11,8 @@ import sys
 import tools
 
 import command
-import fdt_select
+import elf
+import fdt
 import fdt_util
 from image import Image
 import tout
@@ -40,15 +40,15 @@ def _ReadImageDesc(binman_node):
         images['image'] = Image('image', binman_node)
     return images
 
-def _FindBinmanNode(fdt):
+def _FindBinmanNode(dtb):
     """Find the 'binman' node in the device tree
 
     Args:
-        fdt: Fdt object to scan
+        dtb: Fdt object to scan
     Returns:
         Node object of /binman node, or None if not found
     """
-    for node in fdt.GetRoot().subnodes:
+    for node in dtb.GetRoot().subnodes:
         if node.name == 'binman':
             return node
     return None
@@ -89,11 +89,12 @@ def Binman(options, args):
 
     try:
         tout.Init(options.verbosity)
+        elf.debug = options.debug
         try:
             tools.SetInputDirs(options.indir)
             tools.PrepareOutputDir(options.outdir, options.preserve)
-            fdt = fdt_select.FdtScan(dtb_fname)
-            node = _FindBinmanNode(fdt)
+            dtb = fdt.FdtScan(dtb_fname)
+            node = _FindBinmanNode(dtb)
             if not node:
                 raise ValueError("Device tree '%s' does not have a 'binman' "
                                  "node" % dtb_fname)
@@ -109,7 +110,10 @@ def Binman(options, args):
                 image.CheckSize()
                 image.CheckEntries()
                 image.ProcessEntryContents()
+                image.WriteSymbols()
                 image.BuildImage()
+                if options.map:
+                    image.WriteMap()
         finally:
             tools.FinaliseOutputDir()
     finally:

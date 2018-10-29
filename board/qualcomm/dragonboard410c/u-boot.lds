@@ -1,11 +1,10 @@
+/* SPDX-License-Identifier: GPL-2.0+ */
 /*
  * Override linker script for fastboot-readable images
  *
  * (C) Copyright 2015 Mateusz Kulikowski <mateusz.kulikowski@gmail.com>
  *
  * Based on arch/arm/cpu/armv8/u-boot.lds (Just add header)
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 OUTPUT_FORMAT("elf64-littleaarch64", "elf64-littleaarch64", "elf64-littleaarch64")
@@ -39,6 +38,22 @@ SECTIONS
 	. = ALIGN(8);
 	.u_boot_list : {
 		KEEP(*(SORT(.u_boot_list*)));
+	}
+
+	. = ALIGN(8);
+
+	.efi_runtime : {
+                __efi_runtime_start = .;
+		*(efi_runtime_text)
+		*(efi_runtime_data)
+                __efi_runtime_stop = .;
+	}
+
+	.efi_runtime_rel : {
+                __efi_runtime_rel_start = .;
+		*(.relaefi_runtime_text)
+		*(.relaefi_runtime_data)
+                __efi_runtime_rel_stop = .;
 	}
 
 	. = ALIGN(8);

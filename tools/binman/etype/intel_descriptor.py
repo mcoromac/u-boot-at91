@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: GPL-2.0+
 # Copyright (c) 2016 Google, Inc
 # Written by Simon Glass <sjg@chromium.org>
-#
-# SPDX-License-Identifier:      GPL-2.0+
 #
 # Entry-type module for 'u-boot'
 #
@@ -33,12 +32,9 @@ class Entry_intel_descriptor(Entry_blob):
     size of the ME region, allowing us to place the ME binary in the right
     place.
     """
-    def __init__(self, image, etype, node):
-        Entry_blob.__init__(self, image, etype, node)
+    def __init__(self, section, etype, node):
+        Entry_blob.__init__(self, section, etype, node)
         self._regions = []
-
-    def GetDefaultFilename(self):
-        return 'descriptor.bin'
 
     def GetPositions(self):
         pos = self.data.find(FD_SIGNATURE)

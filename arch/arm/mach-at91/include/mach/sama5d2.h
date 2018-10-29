@@ -1,19 +1,13 @@
+/* SPDX-License-Identifier: GPL-2.0+ */
 /*
  * Chip-specific header file for the SAMA5D2 SoC
  *
  * Copyright (C) 2015 Atmel
  *		      Wenyou Yang <wenyou.yang@atmel.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #ifndef __SAMA5D2_H
 #define __SAMA5D2_H
-
-/*
- * definitions to be used in other places
- */
-#define CONFIG_AT91FAMILY	/* It's a member of AT91 */
 
 /*
  * Peripheral identifiers/interrupts.

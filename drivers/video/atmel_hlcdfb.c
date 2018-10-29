@@ -1,9 +1,8 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Driver for AT91/AT32 MULTI LAYER LCD Controller
  *
  * Copyright (C) 2012 Atmel Corporation
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
@@ -70,26 +69,46 @@ void lcd_ctrl_init(void *lcdbase)
 
 	/* Disable DISP signal */
 	writel(LCDC_LCDDIS_DISPDIS, &regs->lcdc_lcddis);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_DISPSTS,
 			   false, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_DISPSTS,
+				false, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	/* Disable synchronization */
 	writel(LCDC_LCDDIS_SYNCDIS, &regs->lcdc_lcddis);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_LCDSTS,
 			   false, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_LCDSTS,
+				false, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	/* Disable pixel clock */
 	writel(LCDC_LCDDIS_CLKDIS, &regs->lcdc_lcddis);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_CLKSTS,
 			   false, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_CLKSTS,
+				false, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	/* Disable PWM */
 	writel(LCDC_LCDDIS_PWMDIS, &regs->lcdc_lcddis);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_PWMSTS,
 			   false, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_PWMSTS,
+				false, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 
@@ -215,26 +234,46 @@ void lcd_ctrl_init(void *lcdbase)
 	/* Enable LCD */
 	value = readl(&regs->lcdc_lcden);
 	writel(value | LCDC_LCDEN_CLKEN, &regs->lcdc_lcden);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_CLKSTS,
 			   true, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_CLKSTS,
+				true, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	value = readl(&regs->lcdc_lcden);
 	writel(value | LCDC_LCDEN_SYNCEN, &regs->lcdc_lcden);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_LCDSTS,
 			   true, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_LCDSTS,
+				true, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	value = readl(&regs->lcdc_lcden);
 	writel(value | LCDC_LCDEN_DISPEN, &regs->lcdc_lcden);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_DISPSTS,
 			   true, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_DISPSTS,
+				true, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	value = readl(&regs->lcdc_lcden);
 	writel(value | LCDC_LCDEN_PWMEN, &regs->lcdc_lcden);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_PWMSTS,
 			   true, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_PWMSTS,
+				true, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 
@@ -299,26 +338,46 @@ static void atmel_hlcdc_init(struct udevice *dev)
 
 	/* Disable DISP signal */
 	writel(LCDC_LCDDIS_DISPDIS, &regs->lcdc_lcddis);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_DISPSTS,
 			   false, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_DISPSTS,
+				false, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	/* Disable synchronization */
 	writel(LCDC_LCDDIS_SYNCDIS, &regs->lcdc_lcddis);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_LCDSTS,
 			   false, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_LCDSTS,
+				false, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	/* Disable pixel clock */
 	writel(LCDC_LCDDIS_CLKDIS, &regs->lcdc_lcddis);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_CLKSTS,
 			   false, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_CLKSTS,
+				false, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	/* Disable PWM */
 	writel(LCDC_LCDDIS_PWMDIS, &regs->lcdc_lcddis);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_PWMSTS,
 			   false, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_PWMSTS,
+				false, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 
@@ -438,7 +497,12 @@ static void atmel_hlcdc_init(struct udevice *dev)
 	desc->next = (u32)desc;
 
 	/* Flush the DMA descriptor if we enabled dcache */
+<<<<<<< HEAD
 	flush_dcache_range((u32)desc, ALIGN(((u32)desc + sizeof(*desc)),
+=======
+	flush_dcache_range((u32)desc,
+			   ALIGN(((u32)desc + sizeof(*desc)),
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 			   CONFIG_SYS_CACHELINE_SIZE));
 
 	writel(desc->address, &regs->lcdc_baseaddr);
@@ -450,26 +514,46 @@ static void atmel_hlcdc_init(struct udevice *dev)
 	/* Enable LCD */
 	value = readl(&regs->lcdc_lcden);
 	writel(value | LCDC_LCDEN_CLKEN, &regs->lcdc_lcden);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_CLKSTS,
 			   true, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_CLKSTS,
+				true, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	value = readl(&regs->lcdc_lcden);
 	writel(value | LCDC_LCDEN_SYNCEN, &regs->lcdc_lcden);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_LCDSTS,
 			   true, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_LCDSTS,
+				true, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	value = readl(&regs->lcdc_lcden);
 	writel(value | LCDC_LCDEN_DISPEN, &regs->lcdc_lcden);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_DISPSTS,
 			   true, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_DISPSTS,
+				true, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 	value = readl(&regs->lcdc_lcden);
 	writel(value | LCDC_LCDEN_PWMEN, &regs->lcdc_lcden);
+<<<<<<< HEAD
 	ret = wait_for_bit(__func__, &regs->lcdc_lcdsr, LCDC_LCDSR_PWMSTS,
 			   true, 1000, false);
+=======
+	ret = wait_for_bit_le32(&regs->lcdc_lcdsr, LCDC_LCDSR_PWMSTS,
+				true, 1000, false);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (ret)
 		printf("%s: %d: Timeout!\n", __func__, __LINE__);
 }
@@ -500,15 +584,25 @@ static int atmel_hlcdc_ofdata_to_platdata(struct udevice *dev)
 {
 	struct atmel_hlcdc_priv *priv = dev_get_priv(dev);
 	const void *blob = gd->fdt_blob;
+<<<<<<< HEAD
 	int node = dev->of_offset;
 
 	priv->regs = (struct atmel_hlcd_regs *)dev_get_addr(dev);
+=======
+	int node = dev_of_offset(dev);
+
+	priv->regs = (struct atmel_hlcd_regs *)devfdt_get_addr(dev);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	if (!priv->regs) {
 		debug("%s: No display controller address\n", __func__);
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	if (fdtdec_decode_display_timing(blob, dev->of_offset,
+=======
+	if (fdtdec_decode_display_timing(blob, dev_of_offset(dev),
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 					 0, &priv->timing)) {
 		debug("%s: Failed to decode display timing\n", __func__);
 		return -EINVAL;
@@ -545,6 +639,10 @@ static int atmel_hlcdc_bind(struct udevice *dev)
 }
 
 static const struct udevice_id atmel_hlcdc_ids[] = {
+<<<<<<< HEAD
+=======
+	{ .compatible = "atmel,sama5d2-hlcdc" },
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	{ .compatible = "atmel,at91sam9x5-hlcdc" },
 	{ }
 };

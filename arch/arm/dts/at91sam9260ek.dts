@@ -118,7 +118,11 @@
 				cs-gpios = <0>, <&pioC 11 0>, <0>, <0>;
 				mtd_dataflash@0 {
 					compatible = "atmel,at45", "atmel,dataflash";
+<<<<<<< HEAD
 					spi-max-frequency = <50000000>;
+=======
+					spi-max-frequency = <15000000>;
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 					reg = <1>;
 				};
 			};

@@ -1,9 +1,8 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * (C) Copyright 2007 Michal Simek
  *
  * Michal  SIMEK <monstr@monstr.eu>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 /* This is a board specific file.  It's OK to include board specific
@@ -25,10 +24,12 @@ static int reset_pin = -1;
 
 ulong ram_base;
 
-void dram_init_banksize(void)
+int dram_init_banksize(void)
 {
 	gd->bd->bi_dram[0].start = ram_base;
 	gd->bd->bi_dram[0].size = get_effective_memsize();
+
+	return 0;
 }
 
 int dram_init(void)

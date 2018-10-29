@@ -1,8 +1,13 @@
+<<<<<<< HEAD
+=======
+// SPDX-License-Identifier: GPL-2.0+
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 /*
  * Atmel PIO pinctrl driver
  *
  * Copyright (C) 2016 Atmel Corporation
  *               Wenyou.Yang <wenyou.yang@atmel.com>
+<<<<<<< HEAD
  *
  * SPDX-License-Identifier:	GPL-2.0+
  */
@@ -10,6 +15,14 @@
 #include <common.h>
 #include <dm/device.h>
 #include <dm/pinctrl.h>
+=======
+ */
+
+#include <common.h>
+#include <dm.h>
+#include <dm/pinctrl.h>
+#include <asm/hardware.h>
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #include <linux/io.h>
 #include <linux/err.h>
 #include <mach/at91_pio.h>
@@ -364,7 +377,11 @@ static int at91_pinctrl_set_state(struct udevice *dev, struct udevice *config)
 {
 	struct at91_pinctrl_priv *priv = dev_get_priv(dev);
 	const void *blob = gd->fdt_blob;
+<<<<<<< HEAD
 	int node = config->of_offset;
+=======
+	int node = dev_of_offset(config);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	u32 cells[MAX_PINMUX_ENTRIES];
 	const u32 *list = cells;
 	u32 bank, pin;
@@ -424,7 +441,11 @@ static int at91_pinctrl_probe(struct udevice *dev)
 	int index;
 
 	for (index = 0; index < MAX_GPIO_BANKS; index++) {
+<<<<<<< HEAD
 		addr_base = dev_get_addr_index(dev, index);
+=======
+		addr_base = devfdt_get_addr_index(dev, index);
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 		if (addr_base == FDT_ADDR_T_NONE)
 			break;
 

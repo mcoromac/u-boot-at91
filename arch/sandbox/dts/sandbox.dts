@@ -5,6 +5,7 @@
 / {
 	#address-cells = <1>;
 	#size-cells = <1>;
+	model = "sandbox";
 
 	aliases {
 		eth5 = "/eth@90000000";
@@ -69,7 +70,7 @@
 		compatible = "sandbox,gpio";
 		#gpio-cells = <1>;
 		gpio-bank-name = "a";
-		num-gpios = <20>;
+		sandbox,gpio-count = <20>;
 	};
 
 	gpio_b: gpios@1 {
@@ -77,7 +78,7 @@
 		compatible = "sandbox,gpio";
 		#gpio-cells = <2>;
 		gpio-bank-name = "b";
-		num-gpios = <10>;
+		sandbox,gpio-count = <10>;
 	};
 
 	hexagon {
@@ -114,6 +115,10 @@
 		sandbox_pmic: sandbox_pmic {
 			reg = <0x40>;
 		};
+
+		mc34708: pmic@41 {
+			reg = <0x41>;
+		};
 	};
 
 	lcd {
@@ -121,6 +126,20 @@
 		compatible = "sandbox,lcd-sdl";
 		xres = <1366>;
 		yres = <768>;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		iracibble {
+			gpios = <&gpio_a 1 0>;
+			label = "sandbox:red";
+		};
+
+		martinet {
+			gpios = <&gpio_a 2 0>;
+			label = "sandbox:green";
+		};
 	};
 
 	pci: pci-controller {
@@ -141,6 +160,7 @@
 
 	pinctrl {
 		compatible = "sandbox,pinctrl";
+		status = "okay";
 
 		pinctrl_i2c0: i2c0 {
 			groups = "i2c";
@@ -151,6 +171,12 @@
 		pinctrl_serial0: uart0 {
 			groups = "serial_a";
 			function = "serial";
+		};
+
+		pinctrl_onewire0: onewire0 {
+			groups = "w1";
+			function = "w1";
+			bias-pull-up;
 		};
 	};
 
@@ -221,6 +247,10 @@
 
 	tpm {
 		compatible = "google,sandbox-tpm";
+	};
+
+	tpm2 {
+		compatible = "sandbox,tpm2";
 	};
 
 	triangle {
@@ -294,6 +324,19 @@
 				#gpio-cells = <2>;
 				gpio-bank-name="spmi";
 			};
+		};
+	};
+
+	onewire0: onewire {
+		compatible = "w1-gpio";
+		gpios = <&gpio_a 8>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_onewire0>;
+		status = "okay";
+
+		sandbox_eeprom0: sandbox_eeprom@0 {
+			compatible = "sandbox,w1-eeprom";
+			status = "okay";
 		};
 	};
 };

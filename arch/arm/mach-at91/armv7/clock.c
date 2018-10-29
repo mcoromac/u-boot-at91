@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * [origin: Linux kernel linux/arch/arm/mach-at91/clock.c]
  *
@@ -6,8 +7,6 @@
  * Copyright (C) 2009 Jean-Christophe PLAGNIOL-VILLARD <plagnioj@jcrosoft.com>
  * Copyright (C) 2013 Bo Shen <voice.shen@atmel.com>
  * Copyright (C) 2015 Wenyou Yang <wenyou.yang@atmel.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
@@ -150,6 +149,15 @@ void at91_mck_init(u32 mckr)
 		;
 }
 
+<<<<<<< HEAD
+=======
+/*
+ * For the Master Clock Controller Register(MCKR), while switching
+ * to a lower clock source, we must switch the clock source first
+ * instead of last. Otherwise, we could end up with too high frequency
+ * on the internal bus and peripherals.
+ */
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 void at91_mck_init_down(u32 mckr)
 {
 	struct at91_pmc *pmc = (struct at91_pmc *)ATMEL_BASE_PMC;

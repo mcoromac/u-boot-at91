@@ -1,11 +1,11 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2015 Atmel Corporation
  *		      Wenyou.Yang <wenyou.yang@atmel.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
+<<<<<<< HEAD
 #include <atmel_lcd.h>
 #include <debug_uart.h>
 #include <dm.h>
@@ -15,6 +15,9 @@
 #ifdef CONFIG_DM_VIDEO
 #include <video_console.h>
 #endif
+=======
+#include <debug_uart.h>
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #include <asm/io.h>
 #include <asm/arch/at91_common.h>
 #include <asm/arch/atmel_pio4.h>
@@ -24,6 +27,8 @@
 #include <asm/arch/gpio.h>
 #include <asm/arch/sama5d2.h>
 
+extern void at91_pda_detect(void);
+
 DECLARE_GLOBAL_DATA_PTR;
 
 static void board_usb_hw_init(void)
@@ -31,6 +36,7 @@ static void board_usb_hw_init(void)
 	atmel_pio4_set_pio_output(AT91_PIO_PORTB, 10, 1);
 }
 
+<<<<<<< HEAD
 #if defined(CONFIG_DM_VIDEO) && defined(CONFIG_ATMEL_HLCD)
 static int video_show_board_logo_info(void)
 {
@@ -81,12 +87,20 @@ static int video_show_board_logo_info(void)
 }
 #endif
 
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #ifdef CONFIG_BOARD_LATE_INIT
 int board_late_init(void)
 {
 #ifdef CONFIG_DM_VIDEO
+<<<<<<< HEAD
 	video_show_board_logo_info();
 #endif
+=======
+	at91_video_show_board_info();
+#endif
+	at91_pda_detect();
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	return 0;
 }
 #endif
@@ -136,6 +150,7 @@ int dram_init(void)
 	return 0;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_CMD_I2C
 static int set_ethaddr_from_eeprom(void)
 {
@@ -175,11 +190,16 @@ static int set_ethaddr_from_eeprom(void)
 	return 0;
 }
 #endif
+=======
+#define AT24MAC_MAC_OFFSET	0x9a
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 #ifdef CONFIG_MISC_INIT_R
 int misc_init_r(void)
 {
-	set_ethaddr_from_eeprom();
+#ifdef CONFIG_I2C_EEPROM
+	at91_set_ethaddr(AT24MAC_MAC_OFFSET);
+#endif
 
 	return 0;
 }
@@ -265,8 +285,13 @@ void at91_pmc_init(void)
 	 * so we need to slow down and configure MCKR accordingly.
 	 * This is why we have a special flavor of the switching function.
 	 */
+<<<<<<< HEAD
 	tmp = AT91_PMC_MCKR_PLLADIV_2 | \
 	      AT91_PMC_MCKR_MDIV_3 | \
+=======
+	tmp = AT91_PMC_MCKR_PLLADIV_2 |
+	      AT91_PMC_MCKR_MDIV_3 |
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	      AT91_PMC_MCKR_CSS_MAIN;
 	at91_mck_init_down(tmp);
 

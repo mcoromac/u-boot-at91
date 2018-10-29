@@ -1,10 +1,17 @@
+<<<<<<< HEAD
+=======
+/* SPDX-License-Identifier: GPL-2.0+ */
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 /*
  * Copyright (C) 2017 Microchip Corporation.
  *
  * Static Memory Controllers (SMC) - System peripherals registers.
  * Based on SAMA5D2 datasheet.
+<<<<<<< HEAD
  *
  * SPDX-License-Identifier:	GPL-2.0+
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
  */
 
 #ifndef SAMA5D2_SMC_H

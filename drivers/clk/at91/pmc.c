@@ -1,15 +1,14 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2016 Atmel Corporation
  *               Wenyou.Yang <wenyou.yang@atmel.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
 #include <clk-uclass.h>
-#include <dm/device.h>
+#include <dm.h>
 #include <dm/lists.h>
-#include <dm/root.h>
+#include <dm/util.h>
 #include "pmc.h"
 
 DECLARE_GLOBAL_DATA_PTR;
@@ -39,7 +38,7 @@ int at91_pmc_core_probe(struct udevice *dev)
 
 	dev = dev_get_parent(dev);
 
-	plat->reg_base = (struct at91_pmc *)dev_get_addr_ptr(dev);
+	plat->reg_base = (struct at91_pmc *)devfdt_get_addr_ptr(dev);
 
 	return 0;
 }
@@ -62,7 +61,7 @@ int at91_clk_sub_device_bind(struct udevice *dev, const char *drv_name)
 	     offset > 0;
 	     offset = fdt_next_subnode(fdt, offset)) {
 		if (pre_reloc_only &&
-		    !fdt_getprop(fdt, offset, "u-boot,dm-pre-reloc", NULL))
+		    !dm_fdt_pre_reloc(fdt, offset))
 			continue;
 		/*
 		 * If this node has "compatible" property, this is not
@@ -79,7 +78,7 @@ int at91_clk_sub_device_bind(struct udevice *dev, const char *drv_name)
 		if (!name)
 			return -EINVAL;
 		ret = device_bind_driver_to_node(dev, drv_name, name,
-						 offset, NULL);
+					offset_to_ofnode(offset), NULL);
 		if (ret)
 			return ret;
 	}
@@ -87,7 +86,7 @@ int at91_clk_sub_device_bind(struct udevice *dev, const char *drv_name)
 	return 0;
 }
 
-int at91_clk_of_xlate(struct clk *clk, struct fdtdec_phandle_args *args)
+int at91_clk_of_xlate(struct clk *clk, struct ofnode_phandle_args *args)
 {
 	int periph;
 
@@ -114,7 +113,7 @@ int at91_clk_probe(struct udevice *dev)
 	dev_periph_container = dev_get_parent(dev);
 	dev_pmc = dev_get_parent(dev_periph_container);
 
-	plat->reg_base = (struct at91_pmc *)dev_get_addr_ptr(dev_pmc);
+	plat->reg_base = (struct at91_pmc *)devfdt_get_addr_ptr(dev_pmc);
 
 	return 0;
 }

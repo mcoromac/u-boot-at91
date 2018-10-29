@@ -1,12 +1,14 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2012 - 2013 Atmel Corporation
  * Bo Shen <voice.shen@atmel.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
+<<<<<<< HEAD
 #include <dm.h>
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #include <asm/io.h>
 #include <asm/arch/sama5d3_smc.h>
 #include <asm/arch/at91_common.h>
@@ -20,6 +22,7 @@
 #include <spl.h>
 #include <asm/arch/atmel_mpddrc.h>
 #include <asm/arch/at91_wdt.h>
+<<<<<<< HEAD
 #include <atmel_lcd.h>
 #include <nand.h>
 #include <version.h>
@@ -27,6 +30,8 @@
 #ifdef CONFIG_DM_VIDEO
 #include <video_console.h>
 #endif
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -138,6 +143,7 @@ static void sama5d3xek_mci_hw_init(void)
 }
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_DM_VIDEO
 static int video_show_board_logo_info(void)
 {
@@ -208,6 +214,18 @@ void board_debug_uart_init(void)
 #ifdef CONFIG_BOARD_EARLY_INIT_F
 int board_early_init_f(void)
 {
+=======
+#ifdef CONFIG_DEBUG_UART_BOARD_INIT
+void board_debug_uart_init(void)
+{
+	at91_seriald_hw_init();
+}
+#endif
+
+#ifdef CONFIG_BOARD_EARLY_INIT_F
+int board_early_init_f(void)
+{
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #ifdef CONFIG_DEBUG_UART
 	debug_uart_init();
 #endif
@@ -255,7 +273,10 @@ int board_late_init(void)
 		*p = tolower(*p);
 
 	strcat(name, "ek.dtb");
-	setenv("dtb_name", name);
+	env_set("dtb_name", name);
+#endif
+#ifdef CONFIG_DM_VIDEO
+	at91_video_show_board_info();
 #endif
 #ifdef CONFIG_DM_VIDEO
 	video_show_board_logo_info();
@@ -268,7 +289,11 @@ int board_late_init(void)
 #ifdef CONFIG_SPL_BUILD
 void spl_board_init(void)
 {
+<<<<<<< HEAD
 #if CONFIG_SYS_USE_NANDFLASH
+=======
+#if CONFIG_NAND_BOOT
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	sama5d3xek_nand_hw_init();
 #endif
 }

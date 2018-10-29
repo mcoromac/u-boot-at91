@@ -1,15 +1,15 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * SPI flash interface
  *
  * Copyright (C) 2008 Atmel Corporation
  * Copyright (C) 2010 Reinhard Meyer, EMK Elektronik
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
 #include <spi.h>
 #include <spi_flash.h>
+<<<<<<< HEAD
 
 #include "sf_internal.h"
 
@@ -34,6 +34,32 @@ static u8 spi_compute_num_dummy_bytes(enum spi_flash_protocol proto,
 static int spi_flash_exec(struct spi_flash *flash,
 			  const struct spi_flash_command *cmd)
 {
+=======
+
+#include "sf_internal.h"
+
+static void spi_flash_addr(u32 addr, u8 addr_len, u8 *cmd_buf)
+{
+	u8 i;
+
+	for (i = 0; i < addr_len; i++)
+		cmd_buf[i] = addr >> ((addr_len - 1 - i) * 8);
+}
+
+static u8 spi_compute_num_dummy_bytes(enum spi_flash_protocol proto,
+				      u8 num_dummy_clock_cycles)
+{
+	int shift = fls(spi_flash_protocol_get_addr_nbits(proto)) - 1;
+
+	if (shift < 0)
+		shift = 0;
+	return (num_dummy_clock_cycles << shift) >> 3;
+}
+
+static int spi_flash_exec(struct spi_flash *flash,
+			  const struct spi_flash_command *cmd)
+{
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	struct spi_slave *spi = flash->spi;
 	u8 cmd_buf[SPI_FLASH_CMD_LEN];
 	size_t cmd_len, num_dummy_bytes;

@@ -1,9 +1,7 @@
+# SPDX-License-Identifier: GPL-2.0+
 #
 # (C) Copyright 2014 - 2016 Xilinx, Inc.
 # Michal Simek <michal.simek@xilinx.com>
-#
-# SPDX-License-Identifier:	GPL-2.0+
-#
 
 obj-y	:= zynqmp.o
 
@@ -20,7 +18,17 @@ $(warning Put custom psu_init_gpl.c/h to board/xilinx/zynqmp/custom_hw_platform/
 endif
 endif
 
-obj-$(CONFIG_SPL_BUILD) += $(init-objs)
+ifdef_any_of = $(filter-out undefined,$(foreach v,$(1),$(origin $(v))))
+
+ifneq ($(call ifdef_any_of, CONFIG_ZYNQMP_PSU_INIT_ENABLED CONFIG_SPL_BUILD),)
+obj-y += $(init-objs)
+endif
+
+obj-$(CONFIG_MMC_SDHCI_ZYNQ) += tap_delays.o
+
+ifndef CONFIG_SPL_BUILD
+obj-$(CONFIG_CMD_ZYNQMP) += cmds.o
+endif
 
 # Suppress "warning: function declaration isn't a prototype"
 CFLAGS_REMOVE_psu_init_gpl.o := -Wstrict-prototypes

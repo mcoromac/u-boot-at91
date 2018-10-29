@@ -1,8 +1,7 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2014 Atmel
  *		      Bo Shen <voice.shen@atmel.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
@@ -15,6 +14,7 @@
 #include <asm/arch/clk.h>
 #include <asm/arch/sama5d3_smc.h>
 #include <asm/arch/sama5d4.h>
+<<<<<<< HEAD
 #include <atmel_lcd.h>
 #include <debug_uart.h>
 #include <nand.h>
@@ -23,6 +23,9 @@
 #ifdef CONFIG_DM_VIDEO
 #include <video_console.h>
 #endif
+=======
+#include <debug_uart.h>
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -78,6 +81,7 @@ static void sama5d4ek_usb_hw_init(void)
 }
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_DM_VIDEO
 static int video_show_board_logo_info(void)
 {
@@ -144,6 +148,14 @@ int board_late_init(void)
 #ifdef CONFIG_DM_VIDEO
 	video_show_board_logo_info();
 #endif
+=======
+#ifdef CONFIG_BOARD_LATE_INIT
+int board_late_init(void)
+{
+#ifdef CONFIG_DM_VIDEO
+	at91_video_show_board_info();
+#endif
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	return 0;
 }
 #endif
@@ -200,7 +212,11 @@ int dram_init(void)
 #ifdef CONFIG_SPL_BUILD
 void spl_board_init(void)
 {
+<<<<<<< HEAD
 #if CONFIG_SYS_USE_NANDFLASH
+=======
+#if CONFIG_NAND_BOOT
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	sama5d4ek_nand_hw_init();
 #endif
 }

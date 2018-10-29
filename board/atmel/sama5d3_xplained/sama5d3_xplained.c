@@ -1,8 +1,7 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2014 Atmel Corporation
  *		      Bo Shen <voice.shen@atmel.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
@@ -18,6 +17,8 @@
 #include <asm/arch/at91_wdt.h>
 
 DECLARE_GLOBAL_DATA_PTR;
+
+extern void at91_pda_detect(void);
 
 #ifdef CONFIG_NAND_ATMEL
 void sama5d3_xplained_nand_hw_init(void)
@@ -73,6 +74,7 @@ void board_debug_uart_init(void)
 }
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_BOARD_EARLY_INIT_F
 int board_early_init_f(void)
 {
@@ -82,6 +84,25 @@ int board_early_init_f(void)
 	return 0;
 }
 #endif
+=======
+#ifdef CONFIG_BOARD_LATE_INIT
+int board_late_init(void)
+{
+	at91_pda_detect();
+	return 0;
+}
+#endif
+
+#ifdef CONFIG_BOARD_EARLY_INIT_F
+int board_early_init_f(void)
+{
+#ifdef CONFIG_DEBUG_UART
+	debug_uart_init();
+#endif
+	return 0;
+}
+#endif
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 int board_init(void)
 {
@@ -112,9 +133,11 @@ int dram_init(void)
 #ifdef CONFIG_SPL_BUILD
 void spl_board_init(void)
 {
-#ifdef CONFIG_SYS_USE_MMC
+#ifdef CONFIG_SD_BOOT
+#ifdef CONFIG_GENERIC_ATMEL_MCI
 	sama5d3_xplained_mci0_hw_init();
-#elif CONFIG_SYS_USE_NANDFLASH
+#endif
+#elif CONFIG_NAND_BOOT
 	sama5d3_xplained_nand_hw_init();
 #endif
 }

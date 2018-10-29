@@ -1,7 +1,6 @@
+/* SPDX-License-Identifier: GPL-2.0+ */
 /*
  * Copyright (C) 2011 Simon Guinot <sguinot@lacie.com>
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #ifndef _CONFIG_LACIE_KW_H
@@ -43,8 +42,6 @@
 /*
  * Commands configuration
  */
-#define CONFIG_CMD_ENV
-#define CONFIG_CMD_IDE
 #ifndef CONFIG_NETSPACE_MINI_V2 /* No USB ports on Network Space v2 Mini */
 #endif
 
@@ -75,7 +72,6 @@
 #include "mv-common.h"
 
 /* Remove or override few declarations from mv-common.h */
-#undef CONFIG_RBTREE
 #undef CONFIG_ENV_SPI_MAX_HZ
 #undef CONFIG_SYS_IDE_MAXBUS
 #undef CONFIG_SYS_IDE_MAXDEVICE
@@ -120,7 +116,6 @@
  */
 #ifdef CONFIG_CMD_I2C
 /* I2C EEPROM HT24LC04 (512B - 32 pages of 16 Bytes) */
-#define CONFIG_CMD_EEPROM
 #define CONFIG_SYS_I2C_EEPROM_ADDR		0x50
 #define CONFIG_SYS_EEPROM_PAGE_WRITE_BITS	4 /* 16-byte page size */
 #define CONFIG_SYS_I2C_EEPROM_ADDR_LEN		1 /* 8-bit device address */
@@ -140,7 +135,6 @@
 /*
  * Environment variables configurations
  */
-#define CONFIG_ENV_IS_IN_SPI_FLASH
 #define CONFIG_ENV_SECT_SIZE		0x10000	/* 64KB */
 #define CONFIG_ENV_SIZE			0x1000	/* 4KB */
 #define CONFIG_ENV_ADDR			0x70000
@@ -149,8 +143,6 @@
 /*
  * Default environment variables
  */
-#define CONFIG_BOOTARGS "console=ttyS0,115200"
-
 #define CONFIG_BOOTCOMMAND					\
 	"dhcp && run netconsole; "				\
 	"if run usbload || run diskload; then bootm; fi"

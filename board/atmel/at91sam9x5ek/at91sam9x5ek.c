@@ -1,7 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2012 Atmel Corporation
- *
- * SPDX-License-Identifier:	GPL-2.0+
  */
 
 #include <common.h>
@@ -14,6 +13,7 @@
 #include <asm/arch/clk.h>
 #include <asm/arch/gpio.h>
 #include <debug_uart.h>
+<<<<<<< HEAD
 #include <atmel_lcd.h>
 #include <nand.h>
 #include <version.h>
@@ -21,6 +21,9 @@
 #ifdef CONFIG_DM_VIDEO
 #include <video_console.h>
 #endif
+=======
+#include <asm/mach-types.h>
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -28,6 +31,9 @@ DECLARE_GLOBAL_DATA_PTR;
 /*
  * Miscelaneous platform dependent initialisations
  */
+
+void at91_prepare_cpu_var(void);
+
 #ifdef CONFIG_CMD_NAND
 static void at91sam9x5ek_nand_hw_init(void)
 {
@@ -87,6 +93,7 @@ static void at91sam9x5ek_nand_hw_init(void)
 }
 #endif
 
+<<<<<<< HEAD
 #if defined(CONFIG_DM_VIDEO) && defined(CONFIG_ATMEL_HLCD)
 static int video_show_board_logo_info(void)
 {
@@ -144,12 +151,20 @@ static int video_show_board_logo_info(void)
 }
 #endif
 
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 #ifdef CONFIG_BOARD_LATE_INIT
 int board_late_init(void)
 {
 #ifdef CONFIG_DM_VIDEO
+<<<<<<< HEAD
 	video_show_board_logo_info();
 #endif
+=======
+	at91_video_show_board_info();
+#endif
+	at91_prepare_cpu_var();
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	return 0;
 }
 #endif
@@ -183,7 +198,11 @@ int board_init(void)
 	at91sam9x5ek_nand_hw_init();
 #endif
 
+<<<<<<< HEAD
 #if defined(CONFIG_USB_OHCI_NEW) || defined(CONFIG_USB_EHCI)
+=======
+#if defined(CONFIG_USB_OHCI_NEW) || defined(CONFIG_USB_EHCI_HCD)
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	at91_uhp_hw_init();
 #endif
 	return 0;
@@ -202,9 +221,9 @@ int dram_init(void)
 
 void at91_spl_board_init(void)
 {
-#ifdef CONFIG_SYS_USE_MMC
+#ifdef CONFIG_SD_BOOT
 	at91_mci_hw_init();
-#elif CONFIG_SYS_USE_NANDFLASH
+#elif CONFIG_NAND_BOOT
 	at91sam9x5ek_nand_hw_init();
 #endif
 }

@@ -55,7 +55,10 @@
 
 	aliases {
 		spi0 = &qspi1;
+<<<<<<< HEAD
 		u-boot,dm-pre-reloc;
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	};
 
 	ahb {
@@ -91,6 +94,14 @@
 				pinctrl-names = "default";
 				pinctrl-0 = <&pinctrl_i2c0_default>;
 				status = "okay";
+<<<<<<< HEAD
+=======
+
+				i2c_eeprom: i2c_eeprom@50 {
+					compatible = "microchip,24aa02e48";
+					reg = <0x50>;
+				};
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 			};
 
 			i2c1: i2c@fc028000 {

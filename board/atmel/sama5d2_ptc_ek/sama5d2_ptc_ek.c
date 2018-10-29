@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2017 Microchip Corporation
  *		      Wenyou Yang <wenyou.yang@microchip.com>
  *
  * SPDX-License-Identifier:	GPL-2.0+
+=======
+// SPDX-License-Identifier: GPL-2.0+
+/*
+ * Copyright (C) 2017 Microchip Corporation
+ *		      Wenyou Yang <wenyou.yang@microchip.com>
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
  */
 
 #include <common.h>
@@ -21,6 +28,11 @@
 #include <asm/arch/sama5d2.h>
 #include <asm/arch/sama5d2_smc.h>
 
+<<<<<<< HEAD
+=======
+extern void at91_pda_detect(void);
+
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 DECLARE_GLOBAL_DATA_PTR;
 
 #ifdef CONFIG_NAND_ATMEL
@@ -41,7 +53,11 @@ static void board_nand_hw_init(void)
 	       &smc->cs[3].cycle);
 	writel(AT91_SMC_TIMINGS_TCLR(2) | AT91_SMC_TIMINGS_TADL(7) |
 	       AT91_SMC_TIMINGS_TAR(2)  | AT91_SMC_TIMINGS_TRR(3)   |
+<<<<<<< HEAD
 	       AT91_SMC_TIMINGS_TWB(7)  | AT91_SMC_TIMINGS_RBNSEL(3)|
+=======
+	       AT91_SMC_TIMINGS_TWB(7)  | AT91_SMC_TIMINGS_RBNSEL(3) |
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	       AT91_SMC_TIMINGS_NFSEL(1), &smc->cs[3].timings);
 	writel(AT91_SMC_MODE_RM_NRD | AT91_SMC_MODE_WM_NWE |
 	       AT91_SMC_MODE_EXNW_DISABLE |
@@ -66,6 +82,17 @@ static void board_nand_hw_init(void)
 }
 #endif
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_BOARD_LATE_INIT
+int board_late_init(void)
+{
+	at91_pda_detect();
+	return 0;
+}
+#endif
+
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 static void board_usb_hw_init(void)
 {
 	atmel_pio4_set_pio_output(AT91_PIO_PORTB, 12, ATMEL_PIO_PUEN_MASK);
@@ -92,7 +119,10 @@ int board_early_init_f(void)
 #ifdef CONFIG_DEBUG_UART
 	debug_uart_init();
 #endif
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	return 0;
 }
 #endif
@@ -108,7 +138,10 @@ int board_init(void)
 #ifdef CONFIG_CMD_USB
 	board_usb_hw_init();
 #endif
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 	return 0;
 }
 
@@ -119,6 +152,7 @@ int dram_init(void)
 	return 0;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_CMD_I2C
 static int set_ethaddr_from_eeprom(void)
 {
@@ -158,13 +192,25 @@ static int set_ethaddr_from_eeprom(void)
 	return 0;
 }
 #endif
+=======
+#define AT24MAC_MAC_OFFSET	0xfa
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
 
 #ifdef CONFIG_MISC_INIT_R
 int misc_init_r(void)
 {
+<<<<<<< HEAD
 	set_ethaddr_from_eeprom();
 
 	return 0;
 }
 #endif
 
+=======
+#ifdef CONFIG_I2C_EEPROM
+	at91_set_ethaddr(AT24MAC_MAC_OFFSET);
+#endif
+	return 0;
+}
+#endif
+>>>>>>> 1e7d2e5973c1fb780e55e28a801c6c574158ac14
