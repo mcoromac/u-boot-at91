@@ -118,6 +118,12 @@ config TARGET_AT91SAM9M10G45EK
 	select SUPPORT_SPL
 	select BOARD_EARLY_INIT_F
 
+config TARGET_P_A5_TAB_REVA
+	bool "P-A5-TAB RevA board"
+	select CPU_V7
+	select SUPPORT_SPL
+	select BOARD_EARLY_INIT_F
+
 config TARGET_PM9G45
 	bool "Ronetix pm9g45 board"
 	select AT91SAM9G45
@@ -285,6 +291,7 @@ source "board/ronetix/pm9g45/Kconfig"
 source "board/siemens/corvus/Kconfig"
 source "board/siemens/taurus/Kconfig"
 source "board/siemens/smartweb/Kconfig"
+source "board/A.R.f./p_a5_tab_reva/Kconfig"
 source "board/laird/wb45n/Kconfig"
 source "board/laird/wb50n/Kconfig"
 

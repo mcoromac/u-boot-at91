@@ -531,7 +531,7 @@ dtb-$(CONFIG_ARCH_BCM283X) += \
 	bcm2837-rpi-3-b.dtb
 
 dtb-$(CONFIG_ARCH_ASPEED) += ast2500-evb.dtb
-
+dtb-$(CONFIG_TARGET_P_A5_TAB_REVA) += p_a5_tab_reva.dtb
 dtb-$(CONFIG_ARCH_STI) += stih410-b2260.dtb
 
 dtb-$(CONFIG_TARGET_STM32MP1) += \

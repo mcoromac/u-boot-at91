@@ -1396,7 +1396,7 @@ source "arch/arm/cpu/armv8/zynqmp/Kconfig"
 source "arch/arm/cpu/armv8/Kconfig"
 
 source "arch/arm/mach-imx/Kconfig"
-
+source "board/A.R.f./p_a5_tab_reva/Kconfig"
 source "board/bosch/shc/Kconfig"
 source "board/CarMediaLab/flea3/Kconfig"
 source "board/Marvell/aspenite/Kconfig"
