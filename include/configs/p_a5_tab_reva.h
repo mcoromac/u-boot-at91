@@ -48,15 +48,9 @@
 #define CONFIG_SPL_BOARD_INIT
 #define CONFIG_SYS_MONITOR_LEN		(128 << 10)
 
-#ifdef CONFIG_SYS_USE_MMC
-#define CONFIG_SPL_LDSCRIPT		arch/arm/mach-at91/armv7/u-boot-spl.lds
+
 #define CONFIG_SYS_MMCSD_FS_BOOT_PARTITION	1
 #define CONFIG_SPL_FS_LOAD_PAYLOAD_NAME		"u-boot.img"
 
-#elif CONFIG_SYS_USE_SERIALFLASH
-#define CONFIG_SPL_SPI_LOAD
-#define CONFIG_SYS_SPI_U_BOOT_OFFS	0x10000
-
-#endif
 
 #endif
