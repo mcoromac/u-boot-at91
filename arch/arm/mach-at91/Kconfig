@@ -120,7 +120,7 @@ config TARGET_AT91SAM9M10G45EK
 
 config TARGET_P_A5_TAB_REVA
 	bool "P-A5-TAB RevA board"
-	select CPU_V7
+	select CPU_V7A
 	select SUPPORT_SPL
 	select BOARD_EARLY_INIT_F
 
